@@ -1,7 +1,11 @@
 name: Create release for Raspberry Pi
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
+    types:
+      - closed
     branches: [ "main" ]
 
 env:
