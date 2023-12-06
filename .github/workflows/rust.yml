@@ -58,7 +58,7 @@ jobs:
           name: rusty-weather
 
       - name: Create release
-        uses: actions/create-release@b1
+        uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
