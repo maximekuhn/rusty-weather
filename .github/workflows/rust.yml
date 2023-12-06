@@ -9,6 +9,9 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+# Write permissions are required to upload the release asset.
+permissions: write-all
+
 jobs:
   build:
 
