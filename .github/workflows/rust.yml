@@ -60,14 +60,14 @@ jobs:
         with:
           name: rusty-weather
 
-#      - name: Check for existing release
-#        id: get_release
-#        run: |
-#          echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-#
-#      - name: Show existing release
-#        run: |
-#          echo ${{ steps.get_release.outputs.tag }}
+      - name: Check for existing release
+        id: get_release
+        run: |
+          echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Show existing release
+        run: |
+          echo ${{ steps.get_release.outputs.tag }}
 
       - name: Create release
         uses: actions/create-release@v1
