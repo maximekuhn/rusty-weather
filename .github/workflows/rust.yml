@@ -38,6 +38,11 @@ jobs:
       - name: Build
         run: cross build --release --target=armv7-unknown-linux-gnueabihf
 
+      - name: List files
+        run: |
+          ls -al
+          ls -al target/
+
       - name: Upload executable
         uses: actions/upload-artifact@v3
         with:
