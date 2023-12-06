@@ -48,9 +48,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    needs: build_rpi
+
     steps:
 
       - name: Download executable from artifacts
         uses: actions/download-artifact@v3
         with:
           name: rusty-weather
+
+      - name: Show github ref
+        run: |
+          echo ${{ github.ref }}
+
+#      - name: Create release
+#        uses: actions/create-release@b1
+#        id: create_release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
