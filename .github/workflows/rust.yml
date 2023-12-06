@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: rusty-weather
-          path: target/release/armv7-unknown-linux-gnueabihf/rusty-weather
+          path: target/armv7-unknown-linux-gnueabihf/release/rusty-weather
