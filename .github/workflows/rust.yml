@@ -38,17 +38,19 @@ jobs:
       - name: Build
         run: cross build --release --target=armv7-unknown-linux-gnueabihf
 
-      - name: List files
-        run: |
-          ls -al
-          ls -al target/
-
       - name: Upload executable
         uses: actions/upload-artifact@v3
         with:
           name: rusty-weather
           path: target/armv7-unknown-linux-gnueabihf/release/rusty-weather
 
-      - name: Testing stuff
-        run: |
-          echo ${{ github.run_number }}
+  create_release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Download executable from artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: rusty-weather
