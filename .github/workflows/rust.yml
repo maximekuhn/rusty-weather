@@ -48,3 +48,7 @@ jobs:
         with:
           name: rusty-weather
           path: target/armv7-unknown-linux-gnueabihf/release/rusty-weather
+
+      - name: Testing stuff
+        run: |
+          echo ${{ github.run_number }}
