@@ -57,12 +57,13 @@ jobs:
         with:
           name: rusty-weather
 
-      - name: Show github ref
-        run: |
-          echo ${{ github.ref }}
-
-#      - name: Create release
-#        uses: actions/create-release@b1
-#        id: create_release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        uses: actions/create-release@b1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
