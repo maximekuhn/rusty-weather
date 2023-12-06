@@ -11,3 +11,6 @@ axum = "0.7.2"
 
 # Async runtime
 tokio = { version = "1.34.0", features = ["full"] }
+
+# Vendored OpenSSL (for cross-compilation purposes)
+openssl = { version = "0.10.61", features = ["vendored"] }
