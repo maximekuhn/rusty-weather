@@ -62,10 +62,14 @@ jobs:
 
       - name: Check for existing release
         id: get_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
 
       - name: Show existing release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${{ steps.get_release.outputs.tag }}
 
