@@ -2,8 +2,6 @@ name: Build an test rust
 
 on:
   push:
-    branches:
-      - "**"
     branches-ignore:
       - "main"
 
