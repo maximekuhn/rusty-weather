@@ -15,10 +15,14 @@ unzip rusty-weather-frontend.zip -d frontend
 rm rusty-weather-frontend.zip
 rm rusty-weather-deploy-files.zip
 
-# Move all files in deploy to working directory
-mv deploy/deploy_raspberry_pi/* .
-rm -rf deploy
-rm README.md
+# Rearrange files structure
+mv deploy/deploy_raspberry_pi/* deploy
+rm -rf deploy/deploy_raspberry_pi
+mv deploy/docker-compose.yaml .
+mv deploy/DockerfileFrontend frontend/Dockerfile
+mkdir backend
+mv deploy/DockerfileBackend backend/Dockerfile
+mv rusty-weather-backend backend
 
 # Start docker compose
-docker compose up -d --build
+#docker compose up -d --build

@@ -1,8 +1,17 @@
-version: '3''
-  services:
-    frontend:
-      image: rusty-weather-frontend
-      build: ./DockerfileFrontend
-    backend:
-      image: rusty-weather-backend
-      build: ./DockerfileBackend
+version: '3'
+services:
+  frontend:
+    image: rusty-weather-frontend
+    build: ./DockerfileFrontend
+    ports:
+      - 3000:3000
+  backend:
+    image: rusty-weather-backend
+    build: ./DockerfileBackend
+    ports:
+      - 9999:9999
+    networks:
+      - rustyweathernetwork
+networks:
+  rustyweathernetwork:
+    driver: bridge
