@@ -61,7 +61,7 @@ jobs:
       - name: Zip frontend build files
         run: |
           cd ./frontend
-          zip rusty-weather-frontend.zip build/*
+          zip -r rusty-weather-frontend.zip build
 
       - name: Upload react frontend build
         uses: actions/upload-artifact@v3
