@@ -72,7 +72,7 @@ jobs:
       - name: Download rust backend executable from artifacts
         uses: actions/download-artifact@v3
         with:
-          name: rusty-weather
+          name: rusty-weather-backend
 
       - name: Download react frontend from artifacts
         uses: actions/download-artifact@v3
