@@ -32,7 +32,7 @@ jobs:
       - name: Upload rust backend executable
         uses: actions/upload-artifact@v3
         with:
-          name: rusty-weather
+          name: rusty-weather-backend
           path: ./backend/target/armv7-unknown-linux-gnueabihf/release/rusty-weather
 
   build_frontend:
