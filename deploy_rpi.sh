@@ -30,4 +30,4 @@ mv deploy/DockerfileBackend backend/Dockerfile
 mv rusty-weather-backend backend
 
 # Start docker compose
-#docker compose up -d --build
+docker compose up -d --build
