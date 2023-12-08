@@ -32,13 +32,13 @@ jobs:
       - name: Rename backend executable file
         run: |
           cd ./backend/
-          cp ./backend/target/armv7-unknown-linux-gnueabihf/release/rusty-weather rusty-weather-backend
+          cp ./target/armv7-unknown-linux-gnueabihf/release/rusty-weather rusty-weather-backend
 
       - name: Upload rust backend executable
         uses: actions/upload-artifact@v3
         with:
           name: rusty-weather-backend
-          path: ./rusty-weather-backend
+          path: ./backend/rusty-weather-backend
 
   build_frontend:
 
