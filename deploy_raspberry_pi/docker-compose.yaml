@@ -1,0 +1,19 @@
+version: '3'
+services:
+  frontend:
+    image: rusty-weather-frontend
+    build: ./frontend/
+    restart: always
+    ports:
+      - 2468:2468
+    networks:
+      - frontendnw
+  backend:
+    image: rusty-weather-backend
+    build: ./backend/
+    restart: always
+    networks:
+      - frontendnw
+networks:
+  frontendnw:
+    driver: bridge
