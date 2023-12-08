@@ -108,6 +108,11 @@ jobs:
         with:
           name: rusty-weather-frontend
 
+      - name: Download deploy files from artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: rusty-weather-deploy-files
+
       - name: List files
         run: |
           ls -al
