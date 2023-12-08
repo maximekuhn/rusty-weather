@@ -27,7 +27,7 @@ jobs:
       - name: Build rust backend
         run: |
           cd ./backend/
-          RUSTFLAGS='-C target-feature=+crt-static' cross build --release --target=armv7-unknown-linux-gnueabihf
+          cross build --release --target=armv7-unknown-linux-gnueabihf
 
       - name: Rename backend executable file
         run: |
