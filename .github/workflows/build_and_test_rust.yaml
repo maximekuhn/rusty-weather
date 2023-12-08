@@ -1,9 +1,13 @@
-name: Build an test rust
+name: Build an test rust backend
 
 on:
   push:
     branches-ignore:
       - "main"
+
+defaults:
+  run:
+    working-directory: ./backend/
 
 env:
   CARGO_TERM_COLOR: always
