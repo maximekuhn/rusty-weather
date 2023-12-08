@@ -10,8 +10,8 @@ async fn get_current_temperature() -> Json<f32> {
 #[tokio::main]
 async fn main() {
     let router = Router::new()
-        .route("/hello", get(|| async { "hello" }))
-        .route("/current", get(get_current_temperature))
+        .route("/api/hello", get(|| async { "hello" }))
+        .route("/api/current", get(get_current_temperature))
         .layer(CorsLayer::permissive());
     let listener = TcpListener::bind("0.0.0.0:9999").await.unwrap();
     serve(listener, router).await.unwrap();
