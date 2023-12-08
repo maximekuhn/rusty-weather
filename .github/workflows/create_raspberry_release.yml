@@ -79,24 +79,35 @@ jobs:
         with:
           name: rusty-weather-frontend
 
-#      - name: Create release
-#        uses: actions/create-release@v1
-#        id: create_release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          tag_name: v${{ github.ref }}-${{ github.run_number }}
-#          release_name: Release ${{ github.ref }}-${{ github.run_number }}
-#          draft: false
-#          prerelease: false
-#
-#      - name: Upload release asset (rust backend)
-#        uses: actions/upload-release-asset@v1
-#        id: upload-release-asset
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ./rusty-weather
-#          asset_name: rusty-weather
-#          asset_content_type: text/plain
+      - name: Create release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.ref }}-${{ github.run_number }}
+          release_name: Release ${{ github.ref }}-${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release asset (rust backend)
+        uses: actions/upload-release-asset@v1
+        id: upload-release-asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./rusty-weather-backend
+          asset_name: rusty-weather-backend
+          asset_content_type: text/plain
+
+      - name: Upload release asset (react frontend)
+        uses: actions/upload-release-asset@v1
+        id: upload-release-asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./rusty-weather-frontend
+          asset_name: rusty-weather-frontend
+          asset_content_type: application/zip
