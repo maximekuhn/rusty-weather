@@ -123,5 +123,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./rusty-weather-frontend.zip
-          asset_name: rusty-weather-frontend
+          asset_name: rusty-weather-frontend.zip
           asset_content_type: application/zip
