@@ -2,7 +2,7 @@ name: Create release for Raspberry Pi
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -12,7 +12,7 @@ permissions: write-all
 
 jobs:
 
-  build_rpi:
+  build_backend:
 
     runs-on: ubuntu-latest
 
@@ -35,37 +35,68 @@ jobs:
           name: rusty-weather
           path: ./backend/target/armv7-unknown-linux-gnueabihf/release/rusty-weather
 
+  build_frontend:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup nodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.8.0
+
+      - name: Build react frontend
+        run: |
+          cd ./frontend/
+          npm ci
+          npm run build --omit=dev
+
+      - name: Upload react frontend build
+        uses: actions/upload-artifact@v3
+        with:
+          name: rusty-weather-frontend
+          path: ./frontend/build/*
+
   create_release:
 
     runs-on: ubuntu-latest
 
-    needs: build_rpi
+    needs:
+      - build_backend
+      - build_frontend
 
     steps:
 
-      - name: Download executable from artifacts
+      - name: Download rust backend executable from artifacts
         uses: actions/download-artifact@v3
         with:
           name: rusty-weather
 
-      - name: Create release
-        uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download react frontend from artifacts
+        uses: actions/download-artifact@v3
         with:
-          tag_name: v${{ github.ref }}-${{ github.run_number }}
-          release_name: Release ${{ github.ref }}-${{ github.run_number }}
-          draft: false
-          prerelease: false
+          name: rusty-weather-frontend
 
-      - name: Upload release asset (rust backend)
-        uses: actions/upload-release-asset@v1
-        id: upload-release-asset
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./rusty-weather
-          asset_name: rusty-weather
-          asset_content_type: text/plain
+#      - name: Create release
+#        uses: actions/create-release@v1
+#        id: create_release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: v${{ github.ref }}-${{ github.run_number }}
+#          release_name: Release ${{ github.ref }}-${{ github.run_number }}
+#          draft: false
+#          prerelease: false
+#
+#      - name: Upload release asset (rust backend)
+#        uses: actions/upload-release-asset@v1
+#        id: upload-release-asset
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./rusty-weather
+#          asset_name: rusty-weather
+#          asset_content_type: text/plain
