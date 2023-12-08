@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 
 async function getCurrentWeather(): Promise<number> {
-    const url = `http://backend:9999/api/current`;
+    const host = window.location.hostname;
+    const url = `http://${host}:9999/api/current`;
     const response = await fetch(url);
     const responseJson = await response.json();
     return responseJson as number;
