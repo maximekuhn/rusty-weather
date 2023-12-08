@@ -5,7 +5,7 @@ services:
     build: ./frontend/
     restart: always
     ports:
-      - 80:3000
+      - 2468:3000
   backend:
     image: rusty-weather-backend
     build: ./backend/
