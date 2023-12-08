@@ -25,6 +25,8 @@ jobs:
           cargo install cross
 
       - name: Build rust backend
+        env:
+          CARGO_TERM_VERBOSE: true
         run: |
           cd ./backend/
           cross build --release --target=armv7-unknown-linux-gnueabihf
