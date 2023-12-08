@@ -23,7 +23,7 @@ function Weather() {
     return (
         <>
             <h1>Hello, rusty weather</h1>
-            <div>Current temperature is: {currentTemperature != null ? (<div>{currentTemperature}</div>) : (
+            <div>Current temperature is: {currentTemperature != null ? (<div>{currentTemperature}°C</div>) : (
                 <div>No data yet</div>)}</div>
             <button onClick={getTemperature} style={{
                 width: "200px",
