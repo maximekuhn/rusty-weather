@@ -78,13 +78,13 @@ jobs:
 
       - name: Zip deploy files
         run: |
-          zip -r deploy.zip deploy_raspberry_pi
+          zip -r deploy_files.zip deploy_raspberry_pi
 
       - name: Upload deploy files zip
         uses: actions/upload-artifact@v3
         with:
-          name: rusty-weather-deploy
-          path: ./deploy_raspberry_pi/deploy.zip
+          name: rusty-weather-deploy-files
+          path: ./deploy_files.zip
 
 
   create_release:
@@ -94,6 +94,7 @@ jobs:
     needs:
       - build_backend
       - build_frontend
+      - upload_deploy_files
 
     steps:
 
@@ -151,6 +152,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./rusty-weather-deploy.zip
-          asset_name: rusty-weather-deploy.zip
+          asset_path: ./rusty-weather-deploy-files.zip
+          asset_name: rusty-weather-deploy-files.zip
           asset_content_type: application/zip
