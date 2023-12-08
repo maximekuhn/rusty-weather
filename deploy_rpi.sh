@@ -19,3 +19,6 @@ rm rusty-weather-deploy-files.zip
 mv deploy/deploy_raspberry_pi/* .
 rm -rf deploy
 rm README.md
+
+# Start docker compose
+docker compose up -d --build
