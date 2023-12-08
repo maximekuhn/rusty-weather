@@ -6,6 +6,8 @@ services:
     restart: always
     ports:
       - 2468:2468
+    networks:
+      - frontendnw
   backend:
     image: rusty-weather-backend
     build: ./backend/
@@ -13,7 +15,7 @@ services:
     ports:
       - 9999:9999
     networks:
-      - rustyweathernetwork
+      - frontendnw
 networks:
-  rustyweathernetwork:
+  frontendnw:
     driver: bridge
