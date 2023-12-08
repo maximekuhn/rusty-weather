@@ -3,11 +3,13 @@ services:
   frontend:
     image: rusty-weather-frontend
     build: ./frontend/
+    restart: always
     ports:
-      - 3000:3000
+      - 80:3000
   backend:
     image: rusty-weather-backend
     build: ./backend/
+    restart: always
     ports:
       - 9999:9999
     networks:
