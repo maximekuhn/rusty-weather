@@ -2,7 +2,7 @@ name: Create release for Raspberry Pi
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
 
 env:
   CARGO_TERM_COLOR: always
