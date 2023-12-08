@@ -19,19 +19,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install toolchain
+      - name: Install rust toolchain
         run: |
           rustup target add armv7-unknown-linux-gnueabihf
           cargo install cross
 
-      - name: Build
-        run: cross build --release --target=armv7-unknown-linux-gnueabihf
+      - name: Build rust backend
+        run: |
+          cd ./backend/
+          cross build --release --target=armv7-unknown-linux-gnueabihf
 
-      - name: Upload executable
+      - name: Upload rust backend executable
         uses: actions/upload-artifact@v3
         with:
           name: rusty-weather
-          path: target/armv7-unknown-linux-gnueabihf/release/rusty-weather
+          path: ./backend/target/armv7-unknown-linux-gnueabihf/release/rusty-weather
 
   create_release:
 
@@ -57,7 +59,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload release asset
+      - name: Upload release asset (rust backend)
         uses: actions/upload-release-asset@v1
         id: upload-release-asset
         env:
