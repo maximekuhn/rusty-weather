@@ -12,8 +12,6 @@ services:
     image: rusty-weather-backend
     build: ./backend/
     restart: always
-    ports:
-      - 9999:9999
     networks:
       - frontendnw
 networks:
