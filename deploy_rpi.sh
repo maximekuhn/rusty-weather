@@ -21,6 +21,7 @@ rm -rf deploy/deploy_raspberry_pi
 
 mv deploy/docker-compose.yaml .
 mv deploy/DockerfileFrontend frontend/Dockerfile
+mv deploy/update.sh .
 
 mkdir frontend/nginx/
 mv deploy/frontend-nginx-config.conf frontend/nginx/nginx.conf
