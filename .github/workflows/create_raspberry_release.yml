@@ -69,6 +69,24 @@ jobs:
           name: rusty-weather-frontend
           path: ./frontend/rusty-weather-frontend.zip
 
+  upload_deploy_files:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Zip deploy files
+        run: |
+          zip -r deploy.zip deploy_raspberry_pi
+
+      - name: Upload deploy files zip
+        uses: actions/upload-artifact@v3
+        with:
+          name: rusty-weather-deploy
+          path: ./deploy_raspberry_pi/deploy.zip
+
+
   create_release:
 
     runs-on: ubuntu-latest
@@ -124,4 +142,15 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./rusty-weather-frontend.zip
           asset_name: rusty-weather-frontend.zip
+          asset_content_type: application/zip
+
+      - name: Upload release asset (deploy files)
+        uses: actions/upload-release-asset@v1
+        id: upload-release-asset-deploy-files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./rusty-weather-deploy.zip
+          asset_name: rusty-weather-deploy.zip
           asset_content_type: application/zip
