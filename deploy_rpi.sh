@@ -18,8 +18,13 @@ rm rusty-weather-deploy-files.zip
 # Rearrange files structure
 mv deploy/deploy_raspberry_pi/* deploy
 rm -rf deploy/deploy_raspberry_pi
+
 mv deploy/docker-compose.yaml .
 mv deploy/DockerfileFrontend frontend/Dockerfile
+
+mkdir frontend/nginx/
+mv deploy/frontend-nginx-config.conf frontend/nginx/nginx.conf
+
 mkdir backend
 mv deploy/DockerfileBackend backend/Dockerfile
 mv rusty-weather-backend backend

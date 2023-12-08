@@ -2,12 +2,12 @@ version: '3'
 services:
   frontend:
     image: rusty-weather-frontend
-    build: ./DockerfileFrontend
+    build: ./frontend/
     ports:
       - 3000:3000
   backend:
     image: rusty-weather-backend
-    build: ./DockerfileBackend
+    build: ./backend/
     ports:
       - 9999:9999
     networks:
