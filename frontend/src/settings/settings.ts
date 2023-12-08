@@ -2,8 +2,10 @@ export function saveSettings(name: string, value: string) {
     localStorage.setItem(name, value);
 }
 
-export function getSettings(name: string): string | null {
-    return localStorage.getItem(name);
+export function getSettings(name: string): string {
+    const city = localStorage.getItem(name);
+    if (!city) return DEFAULT_SETTINGS.default_city;
+    return city;
 }
 
 export const SETTINGS = {
