@@ -1,4 +1,4 @@
-name: Build an test rust
+name: Build an test rust backend
 
 on:
   push:
