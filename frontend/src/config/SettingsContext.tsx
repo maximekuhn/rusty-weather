@@ -1,4 +1,5 @@
 import React, {createContext, Dispatch, SetStateAction, useContext, useState} from "react";
+import {config} from "./config";
 
 enum Language {
     English,
@@ -22,8 +23,8 @@ interface SettingsProviderProps {
 
 const SettingsProvider: React.FC<SettingsProviderProps> = ({children}) => {
     const [settings, setSettings] = useState<Settings>({
-        city: "Paris",
-        language: Language.English,
+        city: config.DEFAULT_CITY,
+        language: config.DEFAULT_LANGUAGE,
     })
     return (
         <SettingsContext.Provider value={{settings, setSettings}}>
@@ -40,4 +41,4 @@ const useSettings = (): SettingsContextProps => {
     return context;
 }
 
-export {SettingsProvider, useSettings};
+export {SettingsProvider, useSettings, Language};

@@ -2,10 +2,10 @@ import {getCurrentWeather} from "../../api/weather";
 import {useEffect, useState} from "react";
 import {CurrentWeather} from "../../model/weather";
 import './CurrentDayWeather.css';
-import {useSettings} from "../../config/SettingsContext";
+import {Language, useSettings} from "../../config/SettingsContext";
 
 function CurrentDayWeather() {
-    const {settings, setSettings} = useSettings();
+    const {settings} = useSettings();
     const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
 
     function queryCurrentWeather() {
@@ -23,6 +23,7 @@ function CurrentDayWeather() {
     return (
         <div className="CurrentDayWeather">
             <p>city: {settings.city}</p>
+            <p>language: {Language[settings.language]}</p>
             <ul>
                 <li>temperature: {currentWeather?.temperature}°C</li>
                 <li>{currentWeather?.description}</li>

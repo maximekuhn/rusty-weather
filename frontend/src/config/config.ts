@@ -1,3 +1,5 @@
+import {Language} from "./SettingsContext";
+
 const isDevelopment = process.env.NODE_ENV === "development";
 let backendURL;
 if (isDevelopment) {
@@ -10,4 +12,6 @@ if (isDevelopment) {
 
 export const config = {
     BACKEND_URL: backendURL,
+    DEFAULT_CITY: "Paris",
+    DEFAULT_LANGUAGE: Language.English,
 };
