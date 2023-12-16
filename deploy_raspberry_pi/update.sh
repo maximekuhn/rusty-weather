@@ -8,8 +8,10 @@ rm -rf backend
 rm -rf deploy
 rm -rf frontend
 
-# Remove docker compose file
+# Remove old files
+rm deploy_rpi.sh
 rm docker-compose.yaml
 
-# Run deploy_rpi.sh again
+# Download and start deploy script
+wget https://raw.githubusercontent.com/maximekuhn/rusty-weather/main/deploy_rpi.sh
 bash deploy_rpi.sh

@@ -82,10 +82,10 @@ async fn get_city_coords(city_name: &str, api_key: &str) -> Result<Option<Coords
     );
     let response: Vec<Coords> = reqwest::get(url)
         .await
-        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
         .json()
         .await
-        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?;
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
     Ok(response.first().cloned())
 }
 
@@ -100,10 +100,10 @@ async fn get_current_weather(
     );
     let current_weather: OpenWeatherAPICurrent = reqwest::get(url)
         .await
-        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
         .json()
         .await
-        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?;
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
 
     Ok(CurrentDayWeather::from(current_weather))
 }
@@ -120,10 +120,10 @@ async fn get_pop_for_the_next_hour(
 
     let forecast_weather: OpenWeatherAPIForecast5 = reqwest::get(url)
         .await
-        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
         .json()
         .await
-        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?;
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
 
     if let Some(data) = forecast_weather.list.get(1) {
         return Ok(Some(data.pop));

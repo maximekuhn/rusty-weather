@@ -3,7 +3,7 @@ use std::fmt::{Debug, Display, Formatter};
 
 #[derive(Debug)]
 pub enum WeatherError {
-    FailedToFetchOpenWeather,
+    FailedToFetchOpenWeather(String),
     CityNotFound,
 }
 
