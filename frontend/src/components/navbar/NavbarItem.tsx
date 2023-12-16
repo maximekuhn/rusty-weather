@@ -9,10 +9,9 @@ interface NavbarItemProps {
 
 function NavbarItem({title, pathTo, isActive, onClick}: NavbarItemProps) {
     return (
-        <div onClick={onClick}>
+        <div onClick={onClick} className={isActive ? ("NavbarItemActive") : ("NavbarItem")}>
             <Link to={pathTo}>
                 <button>{title}</button>
-                {isActive ? (<p>active</p>) : (<p>not active</p>)}
             </Link>
         </div>
     );
