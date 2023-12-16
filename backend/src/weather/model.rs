@@ -8,7 +8,8 @@ pub struct CurrentDayWeather {
     pub humidity_rate: f32,
     pub wind_speed: f32,
     pub visibility: f32,
-    pub probability_of_precipitation: f32,
+    #[serde(default = "Option::None")]
+    pub probability_of_precipitation: Option<f32>,
     pub sunset: i64,
     pub sunrise: i64,
     pub description: String,
@@ -54,6 +55,16 @@ pub struct OpenWeatherAPICurrentSys {
     sunrise: i64,
 }
 
+#[derive(Deserialize)]
+pub struct OpenWeatherAPIForecast5 {
+    pub list: Vec<OpenWeatherAPIForecast5Data>,
+}
+
+#[derive(Deserialize)]
+pub struct OpenWeatherAPIForecast5Data {
+    pub pop: f32,
+}
+
 impl From<OpenWeatherAPICurrent> for CurrentDayWeather {
     fn from(current_weather: OpenWeatherAPICurrent) -> Self {
         let description = match current_weather.weather.first() {
@@ -68,7 +79,7 @@ impl From<OpenWeatherAPICurrent> for CurrentDayWeather {
             humidity_rate: current_weather.main.humidity,
             wind_speed: current_weather.wind.speed,
             visibility: current_weather.visibility,
-            probability_of_precipitation: 0.0,
+            probability_of_precipitation: None,
             sunset: current_weather.sys.sunset,
             sunrise: current_weather.sys.sunrise,
             description: description.to_string(),

@@ -6,7 +6,9 @@ use serde::Deserialize;
 use tokio::sync::Mutex;
 
 use crate::weather::error::WeatherError;
-use crate::weather::model::{CurrentDayWeather, ForecastWeather, OpenWeatherAPICurrent};
+use crate::weather::model::{
+    CurrentDayWeather, ForecastWeather, OpenWeatherAPICurrent, OpenWeatherAPIForecast5,
+};
 use crate::weather::WeatherClient;
 
 #[derive(Clone)]
@@ -56,7 +58,14 @@ impl WeatherClient for OpenWeatherAPI {
         city_name: &str,
     ) -> Result<CurrentDayWeather, WeatherError> {
         let coords = self.get_or_request_city_coords(city_name).await?;
-        let current_day_weather = get_current_weather(&coords, &self.API_KEY).await?;
+
+        // Get current data
+        let mut current_day_weather = get_current_weather(&coords, &self.API_KEY).await?;
+
+        // Get probability of precipitation for the next hour from a forecast API
+        let pop = get_pop_for_the_next_hour(&coords, &self.API_KEY).await?;
+        current_day_weather.probability_of_precipitation = pop;
+
         Ok(current_day_weather)
     }
 
@@ -97,4 +106,27 @@ async fn get_current_weather(
         .map_err(|_| WeatherError::FailedToFetchOpenWeather)?;
 
     Ok(CurrentDayWeather::from(current_weather))
+}
+
+// https://openweathermap.org/forecast5
+async fn get_pop_for_the_next_hour(
+    coords: &Coords,
+    api_key: &str,
+) -> Result<Option<f32>, WeatherError> {
+    let url = format!(
+        "https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}&cnt=2",
+        coords.lat, coords.lon, api_key
+    );
+
+    let forecast_weather: OpenWeatherAPIForecast5 = reqwest::get(url)
+        .await
+        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?
+        .json()
+        .await
+        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?;
+
+    if let Some(data) = forecast_weather.list.get(1) {
+        return Ok(Some(data.pop));
+    }
+    Ok(None)
 }
