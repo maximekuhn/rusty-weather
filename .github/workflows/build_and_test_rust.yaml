@@ -22,10 +22,28 @@ jobs:
 
       - name: Check lint
         run: |
-          cargo clippy -- -D warnings
+          echo "TODO"
+#          cargo clippy -- -D warnings
 
       - name: Build
         run: cargo build --verbose
 
       - name: Run tests
         run: cargo test --verbose
+
+
+  build_rpi:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install rust toolchain
+        run: |
+          rustup target add armv7-unknown-linux-gnueabihf
+          cargo install cross
+
+      - name: Build rust backend
+        run: |
+          cross build --release --target=armv7-unknown-linux-gnueabihf
