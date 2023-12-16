@@ -1,10 +1,11 @@
-use crate::weather::error::WeatherError;
-use axum::async_trait;
-use serde::Deserialize;
 use std::collections::HashMap;
 use std::sync::Arc;
+
+use axum::async_trait;
+use serde::Deserialize;
 use tokio::sync::Mutex;
 
+use crate::weather::error::WeatherError;
 use crate::weather::model::{CurrentDayWeather, ForecastWeather, OpenWeatherAPICurrent};
 use crate::weather::WeatherClient;
 

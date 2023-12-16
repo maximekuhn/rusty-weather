@@ -1,11 +1,11 @@
-use crate::app_state::AppState;
-use crate::config::Config;
-use crate::weather::open_weather_api::OpenWeatherAPI;
-
 use axum::routing::get;
 use axum::{middleware, serve, Router};
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
+
+use crate::app_state::AppState;
+use crate::config::Config;
+use crate::weather::open_weather_api::OpenWeatherAPI;
 
 mod app_state;
 mod config;

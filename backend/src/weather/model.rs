@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+
 #[derive(Serialize)]
 pub struct CurrentDayWeather {
     pub temperature: f32,

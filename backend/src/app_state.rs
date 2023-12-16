@@ -1,5 +1,6 @@
-use crate::weather::WeatherClient;
 use std::sync::Arc;
+
+use crate::weather::WeatherClient;
 
 #[derive(Clone)]
 pub struct AppState<W>

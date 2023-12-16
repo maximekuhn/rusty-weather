@@ -1,13 +1,12 @@
-use crate::weather::error::WeatherError;
-use axum::http::header::CONTENT_TYPE;
-use axum::http::{HeaderValue, StatusCode};
-use axum::response::{ErrorResponse, IntoResponse, Response};
-use axum::Json;
-use serde::ser::SerializeStruct;
-use serde::{Serialize, Serializer};
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 use std::sync::Arc;
+
+use axum::http::header::CONTENT_TYPE;
+use axum::http::{HeaderValue, StatusCode};
+use axum::response::{IntoResponse, Response};
+use serde::ser::SerializeStruct;
+use serde::Serializer;
 
 #[derive(Debug)]
 pub struct HandlerError {

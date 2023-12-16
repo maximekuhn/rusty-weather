@@ -1,9 +1,11 @@
-use crate::handlers::error::HandlerError;
+use std::sync::Arc;
+use std::time::Instant;
+
 use axum::extract::Request;
 use axum::middleware::Next;
 use axum::response::Response;
-use std::sync::Arc;
-use std::time::Instant;
+
+use crate::handlers::error::HandlerError;
 
 pub async fn logger_mw(req: Request, next: Next) -> Response {
     let method_and_path = { format!("{:<5} {:<40}", req.method().as_str(), req.uri().path()) };

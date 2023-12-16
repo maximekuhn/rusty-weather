@@ -1,5 +1,6 @@
-use crate::handlers::error::HandlerError;
 use axum::http::StatusCode;
+
+use crate::handlers::error::HandlerError;
 
 pub mod error;
 pub mod weather;
