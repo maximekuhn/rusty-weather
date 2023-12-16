@@ -1,0 +1,12 @@
+.CurrentDayWeather {
+    width: 50%;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.CurrentDayWeather button {
+    background-color: #024796;
+    border-color: #303030;
+    font-size: 16px;
+}

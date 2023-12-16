@@ -1,5 +1,6 @@
 import NavbarItem from "./NavbarItem";
 import {useState} from "react";
+import './Navbar.css';
 
 function Navbar() {
     const [activeItem, setActiveItem] = useState<string>("home");
@@ -9,7 +10,7 @@ function Navbar() {
     }
 
     return (
-        <div>
+        <div className="Navbar">
             <NavbarItem title={"home"} pathTo={"/"} isActive={activeItem === "home"}
                         onClick={() => handeItemClick("home")}/>
             <NavbarItem title={"forecast"} pathTo={"/forecast"} isActive={activeItem === "forecast"}
