@@ -5,7 +5,7 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
-use crate::weather::model::{CurrentDayWeather, ForecastWeather};
+use crate::weather::model::{CurrentDayWeather, ForecastWeather, OpenWeatherAPICurrent};
 use crate::weather::WeatherClient;
 
 #[derive(Clone)]
@@ -55,8 +55,8 @@ impl WeatherClient for OpenWeatherAPI {
         city_name: &str,
     ) -> Result<CurrentDayWeather, WeatherError> {
         let coords = self.get_or_request_city_coords(city_name).await?;
-
-        todo!()
+        let current_day_weather = get_current_weather(&coords, &self.API_KEY).await?;
+        Ok(current_day_weather)
     }
 
     async fn get_forecast_weather(&self, city_name: &str) -> Result<ForecastWeather, WeatherError> {
@@ -80,9 +80,20 @@ async fn get_city_coords(city_name: &str, api_key: &str) -> Result<Option<Coords
 }
 
 // https://openweathermap.org/current
-async fn get_current_weather(coords: &Coords, api_key: &str) {
+async fn get_current_weather(
+    coords: &Coords,
+    api_key: &str,
+) -> Result<CurrentDayWeather, WeatherError> {
     let url = format!(
         "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric",
         coords.lat, coords.lon, api_key
     );
+    let current_weather: OpenWeatherAPICurrent = reqwest::get(url)
+        .await
+        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?
+        .json()
+        .await
+        .map_err(|_| WeatherError::FailedToFetchOpenWeather)?;
+
+    Ok(CurrentDayWeather::from(current_weather))
 }

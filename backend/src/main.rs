@@ -3,13 +3,14 @@ use crate::config::Config;
 use crate::weather::open_weather_api::OpenWeatherAPI;
 
 use axum::routing::get;
-use axum::{serve, Router};
+use axum::{middleware, serve, Router};
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 
 mod app_state;
 mod config;
 mod handlers;
+mod middlewares;
 mod weather;
 
 #[tokio::main]
@@ -20,10 +21,11 @@ async fn main() {
     // create application router
     let router = Router::new()
         .route(
-            "/api/weather/current",
+            "/api/weather/current/:city_name",
             get(handlers::weather::get_current_weather),
         )
         .with_state(app_state)
+        .route_layer(middleware::from_fn(middlewares::logger_mw))
         .fallback(handlers::_404_not_found)
         .layer(CorsLayer::permissive());
 
