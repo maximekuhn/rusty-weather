@@ -1,6 +1,10 @@
 use crate::weather::error::WeatherError;
-use axum::http::StatusCode;
-use axum::response::{IntoResponse, Response};
+use axum::http::header::CONTENT_TYPE;
+use axum::http::{HeaderValue, StatusCode};
+use axum::response::{ErrorResponse, IntoResponse, Response};
+use axum::Json;
+use serde::ser::SerializeStruct;
+use serde::{Serialize, Serializer};
 use std::error::Error;
 use std::fmt::{Display, Formatter};
 use std::sync::Arc;
@@ -39,7 +43,14 @@ impl Error for HandlerError {}
 
 impl IntoResponse for HandlerError {
     fn into_response(self) -> Response {
-        let mut response = self.status_code.into_response();
+        let json_response = serde_json::to_string(&self.message.clone().unwrap_or_default())
+            .expect("Failed to serialize a String");
+        let mut response = json_response.into_response();
+        response
+            .headers_mut()
+            .insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
+        let status = response.status_mut();
+        *status = self.status_code;
         response.extensions_mut().insert(Arc::new(self));
         response
     }
