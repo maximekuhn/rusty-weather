@@ -1,5 +1,6 @@
 FROM arm32v7/debian
 WORKDIR /app
 COPY ./rusty-weather-backend app
+ENV RUSTY_WEATHER_RUST_LOG="rusty_weather=info,error"
 RUN chmod +x app
 CMD ["./app"]

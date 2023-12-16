@@ -1,5 +1,7 @@
 use axum::routing::get;
 use axum::{middleware, serve, Router};
+use env_logger::Env;
+use log::{error, info, warn};
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 
@@ -15,6 +17,9 @@ mod weather;
 
 #[tokio::main]
 async fn main() {
+    // Init logger
+    init_logger();
+
     // Create application state
     let app_state = create_app_state().unwrap();
 
@@ -39,4 +44,10 @@ fn create_app_state() -> Result<AppState<OpenWeatherAPI>, &'static str> {
     let weather_client = OpenWeatherAPI::new(config.open_weather_api_key);
     let app_state = AppState::new(weather_client);
     Ok(app_state)
+}
+
+fn init_logger() {
+    let env = Env::default().filter_or("RUSTY_WEATHER_RUST_LOG", "rusty_weather=error,info");
+    env_logger::init_from_env(env);
+    info!("Logger initialized !");
 }
