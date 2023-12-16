@@ -5,18 +5,21 @@ import SettingsPage from "./pages/SettingsPage";
 import ForecastPage from "./pages/ForecastPage";
 import Navbar from "./components/navbar/Navbar";
 import './App.css';
+import {SettingsProvider} from "./config/SettingsContext";
 
 function App() {
 
     return (
         <div className="App">
             <header className="App-header">
-                <Navbar/>
-                <Routes>
-                    <Route path={"/"} element={<WeatherPage/>}/>
-                    <Route path={"/forecast"} element={<ForecastPage/>}/>
-                    <Route path={"/settings"} element={<SettingsPage/>}/>
-                </Routes>
+                <SettingsProvider>
+                    <Navbar/>
+                    <Routes>
+                        <Route path={"/"} element={<WeatherPage/>}/>
+                        <Route path={"/forecast"} element={<ForecastPage/>}/>
+                        <Route path={"/settings"} element={<SettingsPage/>}/>
+                    </Routes>
+                </SettingsProvider>
             </header>
         </div>
     );
