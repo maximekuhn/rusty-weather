@@ -30,5 +30,9 @@ mkdir backend
 mv deploy/DockerfileBackend backend/Dockerfile
 mv rusty-weather-backend backend
 
+# Ask for open weather api key
+read -p "OpenWeather API key: " open_weather_api_key
+sed -i "s/%PLACEHOLDER_OPEN_WEATHER_API_KEY%/$open_weather_api_key/g" docker-compose.yaml
+
 # Start docker compose
 docker compose up -d --build
