@@ -12,6 +12,8 @@ services:
     image: rusty-weather-backend
     build: ./backend/
     restart: always
+    environment:
+      - OPEN_WEATHER_API_KEY=%PLACEHOLDER_OPEN_WEATHER_API_KEY%
     networks:
       - frontendnw
 networks:
