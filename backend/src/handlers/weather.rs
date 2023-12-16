@@ -1,6 +1,7 @@
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
 use axum::Json;
+use log::{debug, error};
 
 use crate::app_state::AppState;
 use crate::handlers::error::HandlerError;
@@ -22,9 +23,14 @@ pub async fn get_current_weather<W: WeatherClient>(
 
 impl From<WeatherError> for HandlerError {
     fn from(weather_error: WeatherError) -> Self {
-        if let WeatherError::CityNotFound = weather_error {
-            return Self::new(StatusCode::BAD_REQUEST, Some(weather_error.to_string()));
+        error!("WeatherError: {}", &weather_error.to_string());
+        match weather_error {
+            WeatherError::FailedToFetchOpenWeather(_) => {
+                Self::new(StatusCode::INTERNAL_SERVER_ERROR, None)
+            }
+            WeatherError::CityNotFound => {
+                Self::new(StatusCode::BAD_REQUEST, Some("City not found".to_string()))
+            }
         }
-        Self::default()
     }
 }
