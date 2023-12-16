@@ -1,3 +1,4 @@
+use axum::handler::Handler;
 use axum::routing::get;
 use axum::{middleware, serve, Router};
 use env_logger::Env;
@@ -24,12 +25,9 @@ async fn main() {
     let app_state = create_app_state().unwrap();
 
     // create application router
+    let weather_routes = create_weather_routes(app_state);
     let router = Router::new()
-        .route(
-            "/api/weather/current/:city_name",
-            get(handlers::weather::get_current_weather),
-        )
-        .with_state(app_state)
+        .nest("/api/weather", weather_routes)
         .route_layer(middleware::from_fn(middlewares::logger_mw))
         .fallback(handlers::_404_not_found)
         .layer(CorsLayer::permissive());
@@ -37,6 +35,15 @@ async fn main() {
     // Serve the application on port 9999
     let listener = TcpListener::bind("0.0.0.0:9999").await.unwrap();
     serve(listener, router).await.unwrap();
+}
+
+fn create_weather_routes(app_state: AppState<OpenWeatherAPI>) -> Router {
+    Router::new()
+        .route(
+            "/current/:city_name",
+            get(handlers::weather::get_current_weather),
+        )
+        .with_state(app_state.clone())
 }
 
 fn create_app_state() -> Result<AppState<OpenWeatherAPI>, &'static str> {
