@@ -8,20 +8,21 @@ pub mod model;
 
 #[async_trait]
 pub trait SettingsRepository {
-    fn save(&self, settings: AppSettings) -> Result<(), SettingsError>;
-    fn update(&self, new_settings: AppSettings) -> Result<(), SettingsError>;
+    async fn save(&self, settings: AppSettings) -> Result<(), SettingsError>;
+    async fn update(&self, new_settings: AppSettings) -> Result<(), SettingsError>;
 }
 
 pub struct SQLiteSettingsRepository {
     pool: SqlitePool,
 }
 
+#[async_trait]
 impl SettingsRepository for SQLiteSettingsRepository {
-    fn save(&self, settings: AppSettings) -> Result<(), SettingsError> {
+    async fn save(&self, settings: AppSettings) -> Result<(), SettingsError> {
         todo!()
     }
 
-    fn update(&self, new_settings: AppSettings) -> Result<(), SettingsError> {
+    async fn update(&self, new_settings: AppSettings) -> Result<(), SettingsError> {
         todo!()
     }
 }
