@@ -18,6 +18,7 @@ function CurrentDayWeather() {
 
     useEffect(() => {
         queryCurrentWeather();
+        // eslint-disable-next-line
     }, []);
 
     return (
