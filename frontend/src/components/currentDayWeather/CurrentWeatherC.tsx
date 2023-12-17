@@ -23,6 +23,8 @@ function CurrentWeatherC() {
         }, config.WEATHER_REFRESH_RATE_MS)
         queryCurrentWeather();
         return () => clearInterval(interval);
+
+        // eslint-disable-next-line
     }, [settings]);
 
     return (
@@ -35,7 +37,7 @@ function CurrentWeatherC() {
                         <li>{currentWeather.description}</li>
                         <li>{currentWeather.temperature}°C</li>
                         <li>humidity: {currentWeather.humidity_rate.toPrecision(2)}%</li>
-                        <li>rain: {currentWeather.probability_of_precipitation ? currentWeather.probability_of_precipitation.toPrecision(2): "-"}%</li>
+                        <li>rain: {currentWeather.probability_of_precipitation ? currentWeather.probability_of_precipitation.toPrecision(2) : "-"}%</li>
                     </ul>
                 </div>
             )}
