@@ -32,7 +32,7 @@ Then, edit it:
 @pcmanfm --desktop --profile LXDE-pi
 #@xscreensaver -no-splash
 point-rpi
-chromium --start http://localhost:2468/
+chromium --start http://<RASPBERRY_IP_YOUR_LAN>:2468/
 ```
 
 Then, create a directory (name is not important):

@@ -11,8 +11,8 @@ if (isDevelopment) {
     settingsURL = "http://192.168.1.19:3000/settings";
 } else {
     // assumes rust backend is running on the same machine as frontend nginx
-    backendURL = "/api";
-    settingsURL = "/settings";
+    backendURL = `${window.location.hostname}:${window.location.port}/api`;
+    settingsURL = `${window.location.hostname}:${window.location.port}/settings`;
 }
 
 export const config = {
