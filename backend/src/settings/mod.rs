@@ -49,8 +49,8 @@ impl SettingsRepository for SQLiteSettingsRepository {
     }
 
     async fn update(&self, new_settings: AppSettings) -> Result<(), SettingsError> {
-        let result = sqlx::query("UPDATE ?1 SET current_city = ?2")
-            .bind(&self.table_name)
+        let query = format!("UPDATE {} SET current_city = ?", self.table_name);
+        let result = sqlx::query(&query)
             .bind(&new_settings.current_city)
             .execute(&self.pool)
             .await
