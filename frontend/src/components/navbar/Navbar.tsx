@@ -21,11 +21,11 @@ function Navbar() {
             </Box>
             <Box w={"65%"}>
                 <Flex h={"100%"}>
-                    <NavbarItem pathTo={"/"} isActive={activeItem === "home"} onClick={() => setActiveItem("home")
+                    <NavbarItem pathTo={"/"} isActive={activeItem === "home"} onClick={() => handeItemClick("home")
                     } children={<Button>home</Button>}/>
-                    <NavbarItem pathTo={"/forecast"} isActive={activeItem === "forecast"} onClick={() => setActiveItem("forecast")} children={<Button>forecast</Button>}/>
-                    <NavbarItem pathTo={"/settings"} isActive={activeItem === "settings"} onClick={() => setActiveItem("settings")} children={<NavbarSettingsButton/>}/>
-                    <NavbarItem pathTo={"/"} isActive={false} onClick={() => setActiveItem("home")} children={<NavbarRefreshSettingsButton/>}/>
+                    <NavbarItem pathTo={"/forecast"} isActive={activeItem === "forecast"} onClick={() => handeItemClick("forecast")} children={<Button>forecast</Button>}/>
+                    <NavbarItem pathTo={"/settings"} isActive={activeItem === "settings"} onClick={() => handeItemClick("settings")} children={<NavbarSettingsButton/>}/>
+                    <NavbarItem pathTo={"/"} isActive={false} onClick={() => handeItemClick("home")} children={<NavbarRefreshSettingsButton/>}/>
                 </Flex>
             </Box>
         </Flex>
