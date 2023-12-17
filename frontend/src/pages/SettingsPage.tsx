@@ -3,10 +3,13 @@ import {Settings, useSettings} from "../config/SettingsContext";
 import './SettingsPage.css';
 import {UpdateSettings} from "../model/settings";
 import {updateSettings} from "../api/settings";
+import {isRaspberryPi} from "../utils/screenSize";
+import RedirectToSettings from "../components/redirectToSettings/RedirectToSettings";
 
 function SettingsPage() {
     const {settings, setSettings} = useSettings();
     const [cityInput, setCityInput] = useState<string>(settings.city)
+    const isRPi = isRaspberryPi();
 
     function updateCityInput(value: string) {
         setCityInput(value);
@@ -29,9 +32,15 @@ function SettingsPage() {
     return (
         <div>
             <h1>Settings</h1>
-            <p>city: </p>
-            <input type="text" onChange={(event) => updateCityInput(event.target.value)}/>
-            <button onClick={update}>update</button>
+            {isRPi ? (<div>
+                <RedirectToSettings/>
+            </div>) : (
+                <>
+                    <p>city: </p>
+                    <input type="text" onChange={(event) => updateCityInput(event.target.value)}/>
+                    <button onClick={update}>update</button>
+                </>
+            )}
         </div>
     )
 }
