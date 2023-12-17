@@ -36,6 +36,8 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({children}) => {
                 })
             })
             .catch((err) => console.error(`Something went wrong; ${err}`));
+
+        // eslint-disable-next-line
     }, []);
 
     return (
