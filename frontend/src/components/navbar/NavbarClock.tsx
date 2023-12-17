@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {config} from "../../config/config";
+import {Box, Text} from "@chakra-ui/react";
 
 function formatToDisplay(currentDate: Date): string {
-    const hour = currentDate.getHours().toLocaleString('en-US', {minimumIntegerDigits:2});
-    const minutes = currentDate.getMinutes().toLocaleString('en-US', {minimumIntegerDigits:2});
-    const seconds = currentDate.getSeconds().toLocaleString('en-US', {minimumIntegerDigits:2});
+    const hour = currentDate.getHours().toLocaleString('en-US', {minimumIntegerDigits: 2});
+    const minutes = currentDate.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2});
+    const seconds = currentDate.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2});
     const day = currentDate.toDateString();
     return `${day}: ${hour}:${minutes}:${seconds}`;
 }
@@ -22,7 +23,7 @@ function NavbarClock() {
     }, []);
 
     return (
-        <div className="NavbarClock">{displayedDate}</div>
+        <Box><Text fontSize={"xl"}>{displayedDate}</Text></Box>
     );
 }
 

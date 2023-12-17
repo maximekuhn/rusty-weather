@@ -1,6 +1,8 @@
-import {FiRefreshCcw} from "react-icons/fi";
 import {getCurrentSettings} from "../../api/settings";
 import {useSettings} from "../../config/SettingsContext";
+import {Button, Center, Circle, IconButton} from "@chakra-ui/react";
+import {MdBuild, MdRefresh} from "react-icons/md";
+import React from "react";
 
 
 function NavbarRefreshSettingsButton() {
@@ -16,7 +18,7 @@ function NavbarRefreshSettingsButton() {
     }
 
     return (
-        <FiRefreshCcw onClick={queryAndUpdateSettings}/>
+        <IconButton  aria-label={"Refresh settings"} icon={<MdRefresh />}/>
     );
 }
 

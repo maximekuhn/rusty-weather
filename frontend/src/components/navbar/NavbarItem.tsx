@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
+import {Box, Center} from "@chakra-ui/react";
 
 interface NavbarItemProps {
     pathTo: string;
@@ -10,11 +11,13 @@ interface NavbarItemProps {
 
 function NavbarItem({pathTo, isActive, onClick, children}: NavbarItemProps) {
     return (
-        <div className={isActive ? "NavbarItemActive NavbarItem" : "NavbarItem"} onClick={onClick}>
-            <Link to={pathTo}>
-                {children}
-            </Link>
-        </div>
+        <Box w={"25%"} h={"100%"} onClick={onClick}>
+            <Center h={"100%"}>
+                <Link to={pathTo}>
+                    {children}
+                </Link>
+            </Center>
+        </Box>
     );
 }
 
