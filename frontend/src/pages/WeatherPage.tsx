@@ -7,7 +7,6 @@ function WeatherPage() {
 
     return (
         <div>
-            <h1>Weather</h1>
             {isRPi ? (<CurrentDayWeather />) : (<RedirectToSettings />)}
         </div>
     );

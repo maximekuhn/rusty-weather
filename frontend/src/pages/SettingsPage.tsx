@@ -1,6 +1,5 @@
 import {useState} from "react";
 import {Settings, useSettings} from "../config/SettingsContext";
-import './SettingsPage.css';
 import {UpdateSettings} from "../model/settings";
 import {updateSettings} from "../api/settings";
 import {isRaspberryPi} from "../utils/screenSize";
