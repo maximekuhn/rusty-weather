@@ -33,7 +33,9 @@ mv deploy/frontend-nginx-config.conf frontend/nginx/nginx.conf
 mkdir backend
 mv deploy/DockerfileBackend backend/Dockerfile
 mv rusty-weather-backend backend
-mv migrations backend
+mkdir backend/migrations
+mv migrations/migrations/* backend/migrations
+rm -rf migrations
 
 # Create db file if not exists
 [ -e "db.sqlite3" ] || touch db.sqlite3
