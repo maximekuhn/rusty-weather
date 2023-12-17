@@ -16,6 +16,7 @@ services:
       - OPEN_WEATHER_API_KEY=%PLACEHOLDER_OPEN_WEATHER_API_KEY%
     volumes:
       - /etc/ssl/certs:/etc/ssl/certs
+      - ./db.sqlite3:/app/db/db.sqlite3
     networks:
       - frontendnw
 networks:
