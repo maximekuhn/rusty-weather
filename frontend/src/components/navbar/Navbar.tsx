@@ -3,13 +3,23 @@ import {useState} from "react";
 import './Navbar.css';
 import {useSettings} from "../../config/SettingsContext";
 import NavbarClock from "./NavbarClock";
+import {getCurrentSettings} from "../../api/settings";
 
 function Navbar() {
-    const {settings} = useSettings();
+    const {settings, setSettings} = useSettings();
     const [activeItem, setActiveItem] = useState<string>("home");
 
     function handeItemClick(title: string) {
         setActiveItem(title);
+    }
+
+    function refreshSettings() {
+        getCurrentSettings().then((response) => {
+            const city = response.current_city;
+            setSettings({
+                city: city, language: settings.language
+            });
+        }).catch((err) => console.error(`Something went wrong: ${err}`));
     }
 
     return (
@@ -21,7 +31,8 @@ function Navbar() {
                         onClick={() => handeItemClick("forecast")}/>
             <NavbarItem title={"settings"} pathTo={"/settings"} isActive={activeItem === "settings"}
                         onClick={() => handeItemClick("settings")}/>
-            <NavbarClock />
+            <NavbarClock/>
+            <button onClick={refreshSettings}>refresh settings</button>
         </div>
     );
 }
