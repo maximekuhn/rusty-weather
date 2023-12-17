@@ -12,8 +12,15 @@ pub trait SettingsRepository {
     async fn update(&self, new_settings: AppSettings) -> Result<(), SettingsError>;
 }
 
+#[derive(Clone)]
 pub struct SQLiteSettingsRepository {
     pool: SqlitePool,
+}
+
+impl SQLiteSettingsRepository {
+    pub fn new(pool: SqlitePool) -> Self {
+        Self { pool }
+    }
 }
 
 #[async_trait]

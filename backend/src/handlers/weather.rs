@@ -6,13 +6,14 @@ use log::{debug, error};
 use crate::app_state::AppState;
 use crate::handlers::error::HandlerError;
 use crate::handlers::HandlerResult;
+use crate::settings::SettingsRepository;
 use crate::weather::error::WeatherError;
 use crate::weather::model::CurrentDayWeather;
 use crate::weather::WeatherClient;
 
-pub async fn get_current_weather<W: WeatherClient>(
+pub async fn get_current_weather<W: WeatherClient, SR: SettingsRepository>(
     Path(city_name): Path<String>,
-    State(app_state): State<AppState<W>>,
+    State(app_state): State<AppState<W, SR>>,
 ) -> HandlerResult<Json<CurrentDayWeather>> {
     let current_weather = app_state
         .weather_client

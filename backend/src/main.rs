@@ -2,12 +2,15 @@ use axum::handler::Handler;
 use axum::routing::get;
 use axum::{middleware, serve, Router};
 use env_logger::Env;
-use log::info;
+use log::{error, info};
+use sqlx::SqlitePool;
+use std::process::exit;
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 
 use crate::app_state::AppState;
 use crate::config::Config;
+use crate::settings::SQLiteSettingsRepository;
 use crate::weather::open_weather_api::OpenWeatherAPI;
 
 mod app_state;
@@ -23,7 +26,13 @@ async fn main() {
     init_logger();
 
     // Create application state
-    let app_state = create_app_state().unwrap();
+    let app_state = match create_app_state().await {
+        Ok(state) => state,
+        Err(e) => {
+            error!("Failed to create app state: '{}'", e);
+            exit(1);
+        }
+    };
 
     // create application router
     let weather_routes = create_weather_routes(app_state);
@@ -38,7 +47,7 @@ async fn main() {
     serve(listener, router).await.unwrap();
 }
 
-fn create_weather_routes(app_state: AppState<OpenWeatherAPI>) -> Router {
+fn create_weather_routes(app_state: AppState<OpenWeatherAPI, SQLiteSettingsRepository>) -> Router {
     Router::new()
         .route(
             "/current/:city_name",
@@ -47,14 +56,21 @@ fn create_weather_routes(app_state: AppState<OpenWeatherAPI>) -> Router {
         .with_state(app_state)
 }
 
-fn create_settings_routes(app_state: AppState<OpenWeatherAPI>) -> Router {
+fn create_settings_routes(app_state: AppState<OpenWeatherAPI, SQLiteSettingsRepository>) -> Router {
     todo!()
 }
 
-fn create_app_state() -> Result<AppState<OpenWeatherAPI>, &'static str> {
-    let config = Config::new()?;
+async fn create_app_state() -> Result<AppState<OpenWeatherAPI, SQLiteSettingsRepository>, String> {
+    let config = Config::new().map_err(|err| err.to_string())?;
+
     let weather_client = OpenWeatherAPI::new(config.open_weather_api_key);
-    let app_state = AppState::new(weather_client);
+
+    let db_pool = SqlitePool::connect(&config.db_url)
+        .await
+        .map_err(|err| format!("Failed to connect to sqlite db: '{}'", err))?;
+    let settings_repository = SQLiteSettingsRepository::new(db_pool);
+
+    let app_state = AppState::new(weather_client, settings_repository);
     Ok(app_state)
 }
 
