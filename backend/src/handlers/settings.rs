@@ -19,8 +19,8 @@ pub async fn get_settings<W: WeatherClient, SR: SettingsRepository>(
 }
 
 pub async fn update_settings<W: WeatherClient, SR: SettingsRepository>(
-    Json(new_settings): Json<UpdateSettings>,
     State(app_state): State<AppState<W, SR>>,
+    Json(new_settings): Json<UpdateSettings>,
 ) -> HandlerResult<StatusCode> {
     app_state
         .settings_repo
@@ -37,7 +37,7 @@ impl From<SettingsError> for HandlerError {
 }
 
 #[derive(Deserialize)]
-struct UpdateSettings {
+pub struct UpdateSettings {
     new_current_city: String,
 }
 
