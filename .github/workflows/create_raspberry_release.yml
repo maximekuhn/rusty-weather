@@ -126,7 +126,7 @@ jobs:
 
       - name: List files
         run: |
-          ls -al
+          ls -alh
 
       - name: Create release
         uses: actions/create-release@v1
