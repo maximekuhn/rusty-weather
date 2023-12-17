@@ -1,17 +1,18 @@
 import {Link} from "react-router-dom";
+import {ReactNode} from "react";
 
 interface NavbarItemProps {
-    title: string;
     pathTo: string;
     isActive: boolean;
     onClick: () => void;
+    children: ReactNode;
 }
 
-function NavbarItem({title, pathTo, isActive, onClick}: NavbarItemProps) {
+function NavbarItem({pathTo, isActive, onClick, children}: NavbarItemProps) {
     return (
-        <div onClick={onClick} className={isActive ? ("NavbarItemActive") : ("NavbarItem")}>
+        <div className={isActive ? "NavbarItemActive NavbarItem" : "NavbarItem"} onClick={onClick}>
             <Link to={pathTo}>
-                <button>{title}</button>
+                {children}
             </Link>
         </div>
     );

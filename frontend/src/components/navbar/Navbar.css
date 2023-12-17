@@ -1,0 +1,48 @@
+.Navbar {
+    background-color: #508D69;
+    display: flex;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px black;
+}
+
+.NavbarCityClock {
+    padding: 10px;
+    width: 40%;
+    text-align: left;
+    border-right: 2px solid black;
+}
+
+.NavbarCityClock h1 {
+    font-size: 32px;
+}
+
+.NavbarClock {
+    font-size: 24px;
+}
+
+.NavbarItems {
+    width: 60%;
+    display: flex;
+}
+
+.NavbarItem {
+    display: grid;
+    width: 33%;
+    text-align: center;
+    align-items: center;
+}
+
+.NavbarItemActive {
+    border: 2px solid black;
+}
+
+.NavbarItem a {
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-style: italic;
+}
+
