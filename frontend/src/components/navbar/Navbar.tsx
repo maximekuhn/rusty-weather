@@ -7,7 +7,7 @@ import NavbarSettingsButton from "./NavbarSettingsButton";
 import NavbarRefreshSettingsButton from "./NavbarRefreshSettingsButton";
 
 function Navbar() {
-    const {settings, setSettings} = useSettings();
+    const {settings} = useSettings();
     const [activeItem, setActiveItem] = useState<string>("home");
 
     function handeItemClick(title: string) {
