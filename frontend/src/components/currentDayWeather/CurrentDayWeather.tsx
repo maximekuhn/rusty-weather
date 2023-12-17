@@ -24,6 +24,8 @@ function CurrentDayWeather() {
         }, 10000);
 
         return () => clearInterval(interval);
+
+        // eslint-disable-next-line
     }, [settings.city]);
 
     return (
