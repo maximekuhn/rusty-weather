@@ -3,6 +3,7 @@ use std::env;
 pub struct Config {
     pub open_weather_api_key: String,
     pub db_url: String,
+    pub db_migrations_path: String,
 }
 
 impl Config {
@@ -15,9 +16,12 @@ impl Config {
             .map_err(|_| "DB_URL not found")?
             .trim()
             .to_string();
+        let db_migrations_path =
+            env::var("DB_MIGRATIONS_PATH").map_err(|_| "DB_MIGRATIONS_PATH not found")?;
         Ok(Self {
             open_weather_api_key,
             db_url,
+            db_migrations_path,
         })
     }
 }
