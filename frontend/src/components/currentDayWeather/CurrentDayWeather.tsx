@@ -9,7 +9,7 @@ function CurrentDayWeather() {
     const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
 
     function queryCurrentWeather() {
-        getCurrentWeather("Paris")
+        getCurrentWeather(settings.city)
             .then((response) => {
                 setCurrentWeather(response);
             })
