@@ -14,6 +14,8 @@ services:
     restart: always
     environment:
       - OPEN_WEATHER_API_KEY=%PLACEHOLDER_OPEN_WEATHER_API_KEY%
+      - DB_URL=/app/db/db.sqlite3
+      - DB_MIGRATIONS_PATH=/app/migrations
     volumes:
       - /etc/ssl/certs:/etc/ssl/certs
       - ./db.sqlite3:/app/db/db.sqlite3

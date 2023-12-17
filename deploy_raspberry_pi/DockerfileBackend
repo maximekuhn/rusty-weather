@@ -6,4 +6,6 @@ RUN chmod +x app
 VOLUME /etc/ssl/certs
 RUN mkdir db
 VOLUME /app/db
+RUN mkdir migrations
+COPY ./migrations migrations
 CMD ["./app"]

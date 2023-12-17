@@ -4,16 +4,20 @@
 wget "https://github.com/maximekuhn/rusty-weather/releases/latest/download/rusty-weather-backend"
 wget "https://github.com/maximekuhn/rusty-weather/releases/latest/download/rusty-weather-frontend.zip"
 wget "https://github.com/maximekuhn/rusty-weather/releases/latest/download/rusty-weather-deploy-files.zip"
+wget "https://github.com/maximekuhn/rusty-weather/releases/latest/download/rusty-weather-backend-sql-migrations.zip"
 
-# Unzip frontend and deploy files
+# Unzip frontend, deploy files and backend sql migrations
 mkdir deploy
 unzip rusty-weather-deploy-files.zip -d deploy
 mkdir frontend
 unzip rusty-weather-frontend.zip -d frontend
+mkdir migrations
+unzip rusty-weather-backend-sql-migrations.zip -d migrations
 
 # Delete zip
 rm rusty-weather-frontend.zip
 rm rusty-weather-deploy-files.zip
+rm rusty-weather-backend-sql-migrations.zip
 
 # Rearrange files structure
 mv deploy/deploy_raspberry_pi/* deploy
@@ -29,6 +33,7 @@ mv deploy/frontend-nginx-config.conf frontend/nginx/nginx.conf
 mkdir backend
 mv deploy/DockerfileBackend backend/Dockerfile
 mv rusty-weather-backend backend
+mv migrations backend
 
 # Create db file if not exists
 [ -e "db.sqlite3" ] || touch db.sqlite3
