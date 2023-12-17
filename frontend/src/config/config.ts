@@ -4,10 +4,8 @@ const isDevelopment = process.env.NODE_ENV === "development";
 let backendURL;
 let settingsURL;
 if (isDevelopment) {
-    // assumes rust backend is up and running
-    backendURL = "http://localhost:9999/api";
-
     // change this to your local IP address
+    backendURL = "http://192.168.1.19:9999/api";
     settingsURL = "http://192.168.1.19:3000/settings";
 } else {
     // assumes rust backend is running on the same machine as frontend nginx
