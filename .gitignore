@@ -1,6 +1,9 @@
 # Rust
 backend/target/
 
+# SQLite file
+backend/db.sqlite3
+
 # macOS
 .DS_Store
 

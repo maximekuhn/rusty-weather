@@ -3,7 +3,9 @@
 Work in progress.
 
 ## Run on a Raspberry Pi
+
 Requirements:
+
 - docker
 - wget
 - git
@@ -24,6 +26,7 @@ cp /etc/xdg/lxsession/LXDE-pi/autostart ~/.config/lxsession/LXDE-pi
 ```
 
 Then, edit it:
+
 ```text
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
@@ -33,18 +36,25 @@ chromium --start http://localhost:2468/
 ```
 
 Then, create a directory (name is not important):
+
 ```shell
 mkdir rusty-weather
 cd rusty-weather
 ```
 
 Then, clone the deploy script from Github repository and run it:
+
 ```shell
 wget https://raw.githubusercontent.com/maximekuhn/rusty-weather/main/deploy_rpi.sh
 bash deploy_rpi.sh
 ```
 
 To finish, restart your raspberry pi:
+
 ```shell
 sudo reboot now
 ```
+
+## Developer instructions
+
+TODO

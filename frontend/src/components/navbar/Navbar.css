@@ -3,6 +3,10 @@
     border-bottom: 2px solid #024796;
 }
 
+.Navbar h1 {
+    display: inline;
+}
+
 .Navbar div {
     display: inline-block;
     margin-left: 8px;
@@ -25,4 +29,8 @@
     border: none;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.NavbarClock {
+    font-size: 34px;
 }
