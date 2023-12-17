@@ -4,7 +4,6 @@ import WeatherPage from "./pages/WeatherPage";
 import SettingsPage from "./pages/SettingsPage";
 import ForecastPage from "./pages/ForecastPage";
 import Navbar from "./components/navbar/Navbar";
-import './App.css';
 import {SettingsProvider} from "./config/SettingsContext";
 import {ChakraProvider} from "@chakra-ui/react";
 

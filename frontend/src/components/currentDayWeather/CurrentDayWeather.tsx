@@ -1,6 +1,5 @@
 import CurrentWeatherC from "./CurrentWeatherC";
 import ForecastWeather from "./ForecastWeather";
-import './CurrentDayWeather.css';
 
 function CurrentDayWeather() {
     return (

@@ -1,4 +1,3 @@
-import './CurrentDayWeather.css';
 import {useSettings} from "../../config/SettingsContext";
 import {useEffect, useState} from "react";
 import {CurrentWeather} from "../../model/weather";

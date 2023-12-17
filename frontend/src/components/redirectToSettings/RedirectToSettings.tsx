@@ -2,7 +2,6 @@ import QRCode from "react-qr-code";
 import {config} from "../../config/config";
 import React from "react";
 import {Link} from "react-router-dom";
-import './RedirectToSettings.css';
 
 function RedirectToSettings() {
     const settingsURL = config.SETTINGS_URL;

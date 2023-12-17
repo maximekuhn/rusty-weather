@@ -1,6 +1,5 @@
 import NavbarItem from "./NavbarItem";
 import {useState} from "react";
-import './Navbar.css';
 import {useSettings} from "../../config/SettingsContext";
 import NavbarClock from "./NavbarClock";
 import NavbarSettingsButton from "./NavbarSettingsButton";
