@@ -2,7 +2,7 @@ use axum::handler::Handler;
 use axum::routing::get;
 use axum::{middleware, serve, Router};
 use env_logger::Env;
-use log::{error, info, warn};
+use log::info;
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 
@@ -14,6 +14,7 @@ mod app_state;
 mod config;
 mod handlers;
 mod middlewares;
+mod settings;
 mod weather;
 
 #[tokio::main]
@@ -43,7 +44,11 @@ fn create_weather_routes(app_state: AppState<OpenWeatherAPI>) -> Router {
             "/current/:city_name",
             get(handlers::weather::get_current_weather),
         )
-        .with_state(app_state.clone())
+        .with_state(app_state)
+}
+
+fn create_settings_routes(app_state: AppState<OpenWeatherAPI>) -> Router {
+    todo!()
 }
 
 fn create_app_state() -> Result<AppState<OpenWeatherAPI>, &'static str> {
