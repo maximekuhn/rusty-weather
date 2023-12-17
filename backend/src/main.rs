@@ -1,5 +1,5 @@
 use axum::handler::Handler;
-use axum::routing::get;
+use axum::routing::{get, post};
 use axum::{middleware, serve, Router};
 use env_logger::Env;
 use log::{error, info};
@@ -64,6 +64,7 @@ fn create_weather_routes(app_state: AppState<OpenWeatherAPI, SQLiteSettingsRepos
 fn create_settings_routes(app_state: AppState<OpenWeatherAPI, SQLiteSettingsRepository>) -> Router {
     Router::new()
         .route("/current", get(handlers::settings::get_settings))
+        .route("/update", post(handlers::settings::update_settings))
         .with_state(app_state)
 }
 

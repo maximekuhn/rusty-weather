@@ -3,8 +3,8 @@ use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
 pub enum SettingsError {
-    CouldNotSave,
-    CouldNotUpdate,
+    SQLiteError(String),
+    NoDefaultSettings,
 }
 
 impl Display for SettingsError {
