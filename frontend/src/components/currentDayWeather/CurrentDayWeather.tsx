@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {CurrentWeather} from "../../model/weather";
 import './CurrentDayWeather.css';
 import {Language, useSettings} from "../../config/SettingsContext";
+import {config} from "../../config/config";
 
 function CurrentDayWeather() {
     const {settings} = useSettings();
@@ -21,10 +22,13 @@ function CurrentDayWeather() {
     useEffect(() => {
         const interval = setInterval(() => {
             queryCurrentWeather();
-        }, 10000);
+        }, config.WEATHER_REFRESH_RATE_MS);
+
+        queryCurrentWeather();
 
         return () => clearInterval(interval);
-    }, [settings.city]);
+        // eslint-disable-next-line
+    }, [settings]);
 
     return (
         <div className="CurrentDayWeather">

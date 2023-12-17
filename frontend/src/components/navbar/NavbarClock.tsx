@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {config} from "../../config/config";
 
 function NavbarClock() {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
@@ -7,7 +8,7 @@ function NavbarClock() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentDate(new Date());
-        }, 1000);
+        }, config.CLOCK_REFRESH_RATE_MS);
 
         return () => clearInterval(interval);
     }, []);
