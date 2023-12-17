@@ -27,8 +27,8 @@ function Navbar() {
                             onClick={() => handeItemClick("forecast")} children={<p>forecast</p>}/>
                 <NavbarItem pathTo={"/settings"} isActive={activeItem === "settings"}
                             onClick={() => handeItemClick("settings")} children={<NavbarSettingsButton/>}/>
-                <NavbarItem pathTo={"/"} isActive={false} onClick={() => {
-                }} children={<NavbarRefreshSettingsButton/>}/>
+                <NavbarItem pathTo={"/"} isActive={false} onClick={() => handeItemClick("home")}
+                            children={<NavbarRefreshSettingsButton/>}/>
             </div>
         </div>
     );
