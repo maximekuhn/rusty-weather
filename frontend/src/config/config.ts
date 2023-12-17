@@ -15,7 +15,7 @@ if (isDevelopment) {
 }
 
 // -- Timer settings
-const WEATHER_REFRESH_RATE_SECONDS: number = 20;
+const WEATHER_REFRESH_RATE_SECONDS: number = 60 * 5; // 5 minutes
 const CLOCK_REFRESH_RATE_SECONDS: number = 1;
 
 // -- Raspberry Pi external screen dimensions
