@@ -124,6 +124,11 @@ jobs:
         with:
           name: rusty-weather-deploy-files
 
+      - name: Download backend SQL migrations files
+        uses: actions/download-artifact@v3
+        with:
+          name: rusty-weather-backend-sql-migrations
+
       - name: List files
         run: |
           ls -alh
