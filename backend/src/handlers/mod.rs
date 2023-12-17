@@ -4,6 +4,7 @@ use crate::handlers::error::HandlerError;
 
 pub mod error;
 pub mod weather;
+pub mod settings;
 
 type HandlerResult<T> = Result<T, HandlerError>;
 

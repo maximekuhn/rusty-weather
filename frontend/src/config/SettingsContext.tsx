@@ -42,3 +42,4 @@ const useSettings = (): SettingsContextProps => {
 }
 
 export {SettingsProvider, useSettings, Language};
+export type { Settings };
