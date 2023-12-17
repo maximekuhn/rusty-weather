@@ -1,5 +1,6 @@
-import React, {createContext, Dispatch, SetStateAction, useContext, useState} from "react";
+import React, {createContext, Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {config} from "./config";
+import {getCurrentSettings} from "../api/settings";
 
 enum Language {
     English,
@@ -25,7 +26,20 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({children}) => {
     const [settings, setSettings] = useState<Settings>({
         city: config.DEFAULT_CITY,
         language: config.DEFAULT_LANGUAGE,
-    })
+    });
+
+    useEffect(() => {
+        getCurrentSettings()
+            .then((response) => {
+                setSettings({
+                    city: response.current_city, language: settings.language
+                })
+            })
+            .catch((err) => console.error(`Something went wrong; ${err}`));
+
+        // eslint-disable-next-line
+    }, []);
+
     return (
         <SettingsContext.Provider value={{settings, setSettings}}>
             {children}
@@ -42,4 +56,4 @@ const useSettings = (): SettingsContextProps => {
 }
 
 export {SettingsProvider, useSettings, Language};
-export type { Settings };
+export type {Settings};

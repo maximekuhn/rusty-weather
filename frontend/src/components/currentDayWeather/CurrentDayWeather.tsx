@@ -7,17 +7,24 @@ import {Language, useSettings} from "../../config/SettingsContext";
 function CurrentDayWeather() {
     const {settings} = useSettings();
     const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
+    const [lastRefreshDate, setLastRefreshDate] = useState<Date | undefined>(undefined);
 
     function queryCurrentWeather() {
         getCurrentWeather(settings.city)
             .then((response) => {
                 setCurrentWeather(response);
+                setLastRefreshDate(new Date());
             })
             .catch((err) => console.error(`Something went wrong: ${err}`));
     }
 
     useEffect(() => {
-        queryCurrentWeather();
+        const interval = setInterval(() => {
+            queryCurrentWeather();
+        }, 10000);
+
+        return () => clearInterval(interval);
+
         // eslint-disable-next-line
     }, []);
 
@@ -30,6 +37,9 @@ function CurrentDayWeather() {
                 <li>{currentWeather?.description}</li>
             </ul>
             <button onClick={queryCurrentWeather}>refresh</button>
+            <p>last refresh date: {lastRefreshDate ? (<>
+                {lastRefreshDate.getHours()}:{lastRefreshDate.getMinutes()}:{lastRefreshDate.getSeconds()}
+            </>) : (<>never</>)}</p>
         </div>
     );
 }
