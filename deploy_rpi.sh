@@ -34,7 +34,7 @@ mkdir backend
 mv deploy/DockerfileBackend backend/Dockerfile
 mv rusty-weather-backend backend
 mkdir backend/migrations
-mv migrations/* backend/migrations
+mv migrations/migrations/* backend/migrations
 rm -rf migrations
 
 # Create db file if not exists
