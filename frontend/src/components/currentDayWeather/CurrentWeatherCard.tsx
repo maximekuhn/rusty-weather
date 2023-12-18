@@ -45,7 +45,7 @@ function CurrentWeatherCard() {
         }, config.WEATHER_REFRESH_RATE_MS);
         queryWeather();
         return () => clearInterval(interval);
-    }, []);
+    }, [settings]);
 
     return (
         <Card bg={"tomato"} borderRadius={"6px"} h={"100%"} border={"2px solid black"}>
