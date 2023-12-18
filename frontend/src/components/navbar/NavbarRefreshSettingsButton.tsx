@@ -18,7 +18,7 @@ function NavbarRefreshSettingsButton() {
     }
 
     return (
-        <IconButton  aria-label={"Refresh settings"} icon={<MdRefresh />} onClick={queryAndUpdateSettings}/>
+        <IconButton  aria-label={"Refresh settings"} icon={<MdRefresh />} onClick={queryAndUpdateSettings} size={"lg"}/>
     );
 }
 

@@ -5,7 +5,7 @@ import {MdBuild} from "react-icons/md";
 
 function NavbarSettingsButton() {
     return (
-        <IconButton aria-label={"Settings"} icon={<MdBuild />} />
+        <IconButton aria-label={"Settings"} size={"lg"} icon={<MdBuild/>}/>
     );
 }
 
