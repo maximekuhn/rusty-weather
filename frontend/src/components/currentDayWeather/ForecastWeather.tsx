@@ -1,5 +1,3 @@
-import './CurrentDayWeather.css';
-
 function ForecastWeather() {
     return(
         <div className="ForecastWeather">

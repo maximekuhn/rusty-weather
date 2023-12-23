@@ -1,9 +1,11 @@
-import {IoSettings} from "react-icons/io5";
+import React from "react";
+import {IconButton} from "@chakra-ui/react";
+import {MdBuild} from "react-icons/md";
 
 
 function NavbarSettingsButton() {
     return (
-        <IoSettings/>
+        <IconButton aria-label={"Settings"} size={"lg"} icon={<MdBuild/>}/>
     );
 }
 
