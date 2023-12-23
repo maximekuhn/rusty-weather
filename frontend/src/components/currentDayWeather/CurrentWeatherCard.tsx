@@ -56,17 +56,21 @@ function CurrentWeatherCard() {
                                boxSize={"100%"} bg={"lightsteelblue"}/>
                     </Box>
                     <Box margin={"auto"} w={"60%"}>
-                        <Text fontSize={"2xl"}
-                              wordBreak={"break-word"}
-                              style={{textTransform: "capitalize"}}>{weather?.description}</Text>
+                        <Flex alignItems={"center"}>
+                            <Box w={"70%"}>
+                                <Text fontSize={"2xl"}
+                                      wordBreak={"break-word"}
+                                      style={{textTransform: "capitalize"}}>{weather?.description}</Text>
+                            </Box>
+                            <Box>
+                                <Text fontSize={"2xl"} fontWeight={"semibold"}>{weather?.temperature.toFixed(1)}°C</Text>
+                            </Box>
+                        </Flex>
                     </Box>
                 </Flex>
             </CardHeader>
             <CardBody bg={"lightsalmon"}>
                 <List>
-                    <ListItem>
-                        {weather?.temperature}°C
-                    </ListItem>
                     <ListItem>
                         {weather?.wind_speed}km/h
                     </ListItem>
@@ -83,7 +87,8 @@ function CurrentWeatherCard() {
                     <Box w={"50%"}>
                         <Center>
 
-                            {lastRefreshStatus ? (<MdCheckCircle color={"green"} size={"40%"}/>) : (<MdError color={"red"} size={"40%"}/>)}
+                            {lastRefreshStatus ? (<MdCheckCircle color={"green"} size={"40%"}/>) : (
+                                <MdError color={"red"} size={"40%"}/>)}
                         </Center>
                     </Box>
                     <Box>
