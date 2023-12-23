@@ -28,7 +28,14 @@ impl FromStr for Language {
 
 impl Display for Language {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:?}", self)
+        write!(
+            f,
+            "{}",
+            match self {
+                Language::English => "en",
+                Language::French => "fr",
+            }
+        )
     }
 }
 
@@ -58,5 +65,12 @@ mod tests {
         let misspelled_language_str = "frch";
         let parsed_language = misspelled_language_str.parse::<Language>().unwrap();
         assert_eq!(Language::English, parsed_language);
+    }
+
+    #[rstest]
+    #[case(Language::English, "en")]
+    #[case(Language::French, "fr")]
+    fn test_display_language(#[case] input: Language, #[case] expected: &str) {
+        assert_eq!(expected, format!("{}", input));
     }
 }
