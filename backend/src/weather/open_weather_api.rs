@@ -86,12 +86,7 @@ async fn get_city_coords(city_name: &str, api_key: &str) -> Result<Option<Coords
         "https://api.openweathermap.org/geo/1.0/direct?q={}&appid={}",
         city_name, api_key
     );
-    let response: Vec<Coords> = reqwest::get(url)
-        .await
-        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
-        .json()
-        .await
-        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
+    let response: Vec<Coords> = perform_query(url).await?;
     Ok(response.first().cloned())
 }
 
@@ -105,12 +100,7 @@ async fn get_current_weather(
         "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric&lang={}",
         coords.lat, coords.lon, api_key, language
     );
-    let current_weather: OpenWeatherAPICurrent = reqwest::get(url)
-        .await
-        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
-        .json()
-        .await
-        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
+    let current_weather: OpenWeatherAPICurrent = perform_query(url).await?;
 
     Ok(CurrentDayWeather::from(current_weather))
 }
@@ -125,15 +115,24 @@ async fn get_pop_for_the_next_hour(
         coords.lat, coords.lon, api_key
     );
 
-    let forecast_weather: OpenWeatherAPIForecast5 = reqwest::get(url)
-        .await
-        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
-        .json()
-        .await
-        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
+    let forecast_weather: OpenWeatherAPIForecast5 = perform_query(url).await?;
 
     if let Some(data) = forecast_weather.list.get(1) {
         return Ok(Some(data.pop));
     }
     Ok(None)
+}
+
+/// Perform an HTTP GET request to the given URL
+async fn perform_query<T>(url: String) -> Result<T, WeatherError>
+where
+    T: for<'a> Deserialize<'a>,
+{
+    let result: T = reqwest::get(url)
+        .await
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?
+        .json()
+        .await
+        .map_err(|err| WeatherError::FailedToFetchOpenWeather(err.to_string()))?;
+    Ok(result)
 }
