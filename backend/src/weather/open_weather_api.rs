@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::sync::Arc;
 
+use crate::language::Language;
 use axum::async_trait;
 use serde::Deserialize;
 use tokio::sync::Mutex;
@@ -56,6 +57,7 @@ impl WeatherClient for OpenWeatherAPI {
     async fn get_current_weather(
         &self,
         city_name: &str,
+        language: Language,
     ) -> Result<CurrentDayWeather, WeatherError> {
         let coords = self.get_or_request_city_coords(city_name).await?;
 
@@ -69,7 +71,11 @@ impl WeatherClient for OpenWeatherAPI {
         Ok(current_day_weather)
     }
 
-    async fn get_forecast_weather(&self, city_name: &str) -> Result<ForecastWeather, WeatherError> {
+    async fn get_forecast_weather(
+        &self,
+        city_name: &str,
+        language: Language,
+    ) -> Result<ForecastWeather, WeatherError> {
         todo!()
     }
 }
