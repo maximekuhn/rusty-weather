@@ -9,7 +9,7 @@ if (isDevelopment) {
     backendURL = "http://192.168.1.19:9999/api";
     settingsURL = "http://192.168.1.19:3000/settings";
 } else {
-    // assumes rust backend is running on the same machine as frontend nginx
+    // assumes rust backend is running on the same machine as the nginx frontend
     backendURL = `http://${window.location.hostname}:${window.location.port}/api`;
     settingsURL = `http://${window.location.hostname}:${window.location.port}/settings`;
 }
