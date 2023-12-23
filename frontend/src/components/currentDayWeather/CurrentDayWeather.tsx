@@ -5,7 +5,7 @@ import React from "react";
 
 function CurrentDayWeather() {
     return (
-        <Center margin={"10px"} h={"100%"}>
+        <Center margin={"10px"} marginTop={"20px"} h={"100%"}>
             <Flex w={"100%"} alignContent={"right"} h={"100%"} bg={"yellow"}>
                 <Box w={"58%"}>
                     <CurrentWeatherCard/>

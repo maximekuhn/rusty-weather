@@ -6,11 +6,11 @@ import {
     CardHeader,
     Center,
     Flex,
-    Heading,
+    Heading, HStack,
     Image,
     List, ListIcon,
     ListItem, Spacer,
-    Text
+    Text, VStack
 } from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import {CurrentWeather} from "../../model/weather";
@@ -18,12 +18,45 @@ import {getCurrentWeather} from "../../api/weather";
 import {useSettings} from "../../config/SettingsContext";
 import {config} from "../../config/config";
 import {MdCheckCircle, MdError} from "react-icons/md";
+import {WiGaleWarning, WiHumidity, WiRain, WiStrongWind, WiSunrise, WiSunset, WiWindy} from "react-icons/wi";
+import {epochToDate} from "../../utils/dateAndTimeHelper";
+
+interface WeatherInfoProps {
+    icon: React.ReactNode;
+    text: string;
+}
+
+function WeatherInfo({icon, text}: WeatherInfoProps) {
+    return (
+        <Flex alignItems={"center"}>
+            <Box w={"25%"}>
+                {icon}
+            </Box>
+            <Box>
+                <Text fontSize={"xl"}>
+                {text}
+                </Text>
+            </Box>
+        </Flex>
+    );
+}
+
+function formatDate(epoch: number): string {
+    const asDate = epochToDate(epoch);
+    const hour = asDate.getHours().toLocaleString('en-US', {minimumIntegerDigits: 2});
+    const minutes = asDate.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2});
+    const seconds = asDate.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2});
+    return `${asDate.getHours()}:${asDate.getMinutes()}:${asDate.getSeconds()}`;
+}
 
 function CurrentWeatherCard() {
     const [weather, setWeather] = useState<CurrentWeather | undefined>(undefined);
     const [lastRefreshStatus, setLastRefreshStatus] = useState<boolean>(false);
     const [lastRefreshDate, setLastRefreshDate] = useState<Date | undefined>(undefined);
     const {settings} = useSettings();
+
+    const sunsetDate = weather?.sunset ? formatDate(weather.sunset) : undefined;
+    const sunriseDate = weather?.sunrise ? formatDate(weather.sunrise) : undefined;
 
     function queryWeather() {
         getCurrentWeather(settings.city)
@@ -63,30 +96,33 @@ function CurrentWeatherCard() {
                                       style={{textTransform: "capitalize"}}>{weather?.description}</Text>
                             </Box>
                             <Box>
-                                <Text fontSize={"2xl"} fontWeight={"semibold"}>{weather?.temperature.toFixed(1)}°C</Text>
+                                <Text fontSize={"2xl"}
+                                      fontWeight={"semibold"}>{weather?.temperature.toFixed(1)}°C</Text>
                             </Box>
                         </Flex>
                     </Box>
                 </Flex>
             </CardHeader>
-            <CardBody bg={"lightsalmon"}>
-                <List>
-                    <ListItem>
-                        {weather?.wind_speed}km/h
-                    </ListItem>
-                    <ListItem>
-                        {weather?.humidity_rate}%
-                    </ListItem>
-                    <ListItem>
-                        {weather?.probability_of_precipitation}%
-                    </ListItem>
-                </List>
+            <CardBody bg={"lightsalmon"} padding={"0"} paddingLeft={"10px"}>
+                <Flex marginTop={"10px"} marginBottom={"10px"}>
+                    <Box w={"50%"}>
+                        <Flex direction={"column"}>
+                            <WeatherInfo icon={<WiHumidity size={"50px"}/>} text={`${weather?.humidity_rate.toFixed(1).toString() ?? "-"}%`}/>
+                            <WeatherInfo icon={<WiRain size={"50px"}/>} text={`${weather?.probability_of_precipitation?.toFixed(1).toString() ?? "-"}%`}/>
+                            <WeatherInfo icon={<WiStrongWind size={"50px"}/>} text={`${weather?.wind_speed.toFixed(1).toString() ?? "-"} km/h`}/>
+                        </Flex>
+                    </Box>
+                    <Box w={"50%"}>
+                        <WeatherInfo icon={<WiGaleWarning size={"50px"}/>} text={`${weather?.pressure.toFixed(0).toString() ?? "-"} hPa`}/>
+                        <WeatherInfo icon={<WiSunrise size={"50px"}/>} text={`${sunriseDate ?? "-"}`}/>
+                        <WeatherInfo icon={<WiSunset size={"50px"}/>} text={`${sunsetDate ?? "-"}`}/>
+                    </Box>
+                </Flex>
             </CardBody>
             <CardFooter bg={"lightskyblue"}>
                 <Flex w={"100%"}>
                     <Box w={"50%"}>
                         <Center>
-
                             {lastRefreshStatus ? (<MdCheckCircle color={"green"} size={"40%"}/>) : (
                                 <MdError color={"red"} size={"40%"}/>)}
                         </Center>
