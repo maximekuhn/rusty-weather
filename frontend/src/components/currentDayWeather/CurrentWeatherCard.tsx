@@ -81,12 +81,12 @@ function CurrentWeatherCard() {
     }, [settings]);
 
     return (
-        <Card bg={"tomato"} borderRadius={"6px"} h={"100%"} border={"2px solid black"}>
-            <CardHeader bg={"lightgreen"} h={"30%"} padding={"0"}>
-                <Flex bg={"lightcoral"} h={"100%"}>
-                    <Box w={"25%"} bg={"lavender"}>
+        <Card borderRadius={"6px"} h={"100%"} border={"2px solid black"}>
+            <CardHeader h={"30%"} padding={"0"} borderBottom={"1px solid black"}>
+                <Flex h={"100%"}>
+                    <Box w={"25%"} >
                         <Image src={"https://d29fhpw069ctt2.cloudfront.net/icon/image/84559/preview.svg"}
-                               boxSize={"100%"} bg={"lightsteelblue"}/>
+                               boxSize={"100%"} bg={"lightsteelblue"} borderRight={"1px solid black"}/>
                     </Box>
                     <Box margin={"auto"} w={"60%"}>
                         <Flex alignItems={"center"}>
@@ -103,7 +103,7 @@ function CurrentWeatherCard() {
                     </Box>
                 </Flex>
             </CardHeader>
-            <CardBody bg={"lightsalmon"} padding={"0"} paddingLeft={"10px"}>
+            <CardBody padding={"0"} paddingLeft={"10px"} borderBottom={"1px solid black"}>
                 <Flex marginTop={"10px"} marginBottom={"10px"}>
                     <Box w={"50%"}>
                         <Flex direction={"column"}>
@@ -119,16 +119,16 @@ function CurrentWeatherCard() {
                     </Box>
                 </Flex>
             </CardBody>
-            <CardFooter bg={"lightskyblue"}>
+            <CardFooter>
                 <Flex w={"100%"}>
                     <Box w={"50%"}>
                         <Center>
-                            {lastRefreshStatus ? (<MdCheckCircle color={"green"} size={"40%"}/>) : (
-                                <MdError color={"red"} size={"40%"}/>)}
+                            {lastRefreshStatus ? (<MdCheckCircle color={"green"} size={"10%"}/>) : (
+                                <MdError color={"red"} size={"10px"}/>)}
                         </Center>
                     </Box>
                     <Box>
-                        {lastRefreshDate ? (lastRefreshDate.toString()) : ("-")}
+                        {lastRefreshDate ? (lastRefreshDate.toISOString()) : ("-")}
                     </Box>
                 </Flex>
             </CardFooter>
