@@ -1,7 +1,7 @@
 import {getCurrentSettings} from "../../api/settings";
 import {useSettings} from "../../config/SettingsContext";
-import {Button, Center, Circle, IconButton} from "@chakra-ui/react";
-import {MdBuild, MdRefresh} from "react-icons/md";
+import {IconButton} from "@chakra-ui/react";
+import {MdRefresh} from "react-icons/md";
 import React from "react";
 
 

@@ -1,24 +1,11 @@
-import {
-    Box,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Center,
-    Flex,
-    Heading, HStack,
-    Image,
-    List, ListIcon,
-    ListItem, Spacer,
-    Text, VStack
-} from "@chakra-ui/react";
+import {Box, Card, CardBody, CardFooter, CardHeader, Center, Flex, Image, Text} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import {CurrentWeather} from "../../model/weather";
 import {getCurrentWeather} from "../../api/weather";
 import {useSettings} from "../../config/SettingsContext";
 import {config} from "../../config/config";
 import {MdCheckCircle, MdError} from "react-icons/md";
-import {WiGaleWarning, WiHumidity, WiRain, WiStrongWind, WiSunrise, WiSunset, WiWindy} from "react-icons/wi";
+import {WiGaleWarning, WiHumidity, WiRain, WiStrongWind, WiSunrise, WiSunset} from "react-icons/wi";
 import {epochToDate} from "../../utils/dateAndTimeHelper";
 
 interface WeatherInfoProps {
@@ -36,6 +23,7 @@ function WeatherInfo({icon, text}: WeatherInfoProps) {
                 <Text fontSize={"xl"}>
                 {text}
                 </Text>
+
             </Box>
         </Flex>
     );
@@ -45,8 +33,7 @@ function formatDate(epoch: number): string {
     const asDate = epochToDate(epoch);
     const hour = asDate.getHours().toLocaleString('en-US', {minimumIntegerDigits: 2});
     const minutes = asDate.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2});
-    const seconds = asDate.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2});
-    return `${asDate.getHours()}:${asDate.getMinutes()}:${asDate.getSeconds()}`;
+    return `${hour}h${minutes}`;
 }
 
 function CurrentWeatherCard() {
@@ -78,6 +65,8 @@ function CurrentWeatherCard() {
         }, config.WEATHER_REFRESH_RATE_MS);
         queryWeather();
         return () => clearInterval(interval);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [settings]);
 
     return (

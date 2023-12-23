@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {useSettings} from "../../config/SettingsContext";
 import {Box, Button, Flex} from "@chakra-ui/react";
 import CityAndDate from "./CityAndDate";
 import NavbarItem from "./NavbarItem";
@@ -7,7 +6,6 @@ import NavbarSettingsButton from "./NavbarSettingsButton";
 import NavbarRefreshSettingsButton from "./NavbarRefreshSettingsButton";
 
 function Navbar() {
-    const {settings} = useSettings();
     const [activeItem, setActiveItem] = useState<string>("home");
 
     function handeItemClick(title: string) {
@@ -23,9 +21,13 @@ function Navbar() {
                 <Flex h={"100%"}>
                     <NavbarItem pathTo={"/"} isActive={activeItem === "home"} onClick={() => handeItemClick("home")
                     } children={<Button size={"lg"}>home</Button>}/>
-                    <NavbarItem pathTo={"/forecast"} isActive={activeItem === "forecast"} onClick={() => handeItemClick("forecast")} children={<Button size={"lg"}>forecast</Button>}/>
-                    <NavbarItem pathTo={"/settings"} isActive={activeItem === "settings"} onClick={() => handeItemClick("settings")} children={<NavbarSettingsButton/>}/>
-                    <NavbarItem pathTo={"/"} isActive={false} onClick={() => handeItemClick("home")} children={<NavbarRefreshSettingsButton/>}/>
+                    <NavbarItem pathTo={"/forecast"} isActive={activeItem === "forecast"}
+                                onClick={() => handeItemClick("forecast")}
+                                children={<Button size={"lg"}>forecast</Button>}/>
+                    <NavbarItem pathTo={"/settings"} isActive={activeItem === "settings"}
+                                onClick={() => handeItemClick("settings")} children={<NavbarSettingsButton/>}/>
+                    <NavbarItem pathTo={"/"} isActive={false} onClick={() => handeItemClick("home")}
+                                children={<NavbarRefreshSettingsButton/>}/>
                 </Flex>
             </Box>
         </Flex>

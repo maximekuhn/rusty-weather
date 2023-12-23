@@ -1,6 +1,6 @@
 import {useSettings} from "../../config/SettingsContext";
 import React from "react";
-import {Box, Flex, Text, VStack} from "@chakra-ui/react";
+import {Box, Text, VStack} from "@chakra-ui/react";
 import NavbarClock from "./NavbarClock";
 
 function CityAndDate() {
