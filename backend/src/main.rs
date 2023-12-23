@@ -19,6 +19,7 @@ use crate::weather::open_weather_api::OpenWeatherAPI;
 mod app_state;
 mod config;
 mod handlers;
+mod language;
 mod middlewares;
 mod settings;
 mod weather;
@@ -55,7 +56,7 @@ async fn main() {
 fn create_weather_routes(app_state: AppState<OpenWeatherAPI, SQLiteSettingsRepository>) -> Router {
     Router::new()
         .route(
-            "/current/:city_name",
+            "/current/:city_name/:language",
             get(handlers::weather::get_current_weather),
         )
         .with_state(app_state)
