@@ -62,7 +62,7 @@ impl WeatherClient for OpenWeatherAPI {
         let coords = self.get_or_request_city_coords(city_name).await?;
 
         // Get current data
-        let mut current_day_weather = get_current_weather(&coords, &self.API_KEY).await?;
+        let mut current_day_weather = get_current_weather(&coords, &self.API_KEY, language).await?;
 
         // Get probability of precipitation for the next hour from a forecast API
         let pop = get_pop_for_the_next_hour(&coords, &self.API_KEY).await?;
@@ -99,10 +99,11 @@ async fn get_city_coords(city_name: &str, api_key: &str) -> Result<Option<Coords
 async fn get_current_weather(
     coords: &Coords,
     api_key: &str,
+    language: Language,
 ) -> Result<CurrentDayWeather, WeatherError> {
     let url = format!(
-        "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric",
-        coords.lat, coords.lon, api_key
+        "https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid={}&units=metric&lang={}",
+        coords.lat, coords.lon, api_key, language
     );
     let current_weather: OpenWeatherAPICurrent = reqwest::get(url)
         .await
