@@ -1,5 +1,6 @@
 export enum Language {
     English = "en",
+    French = "fr",
 }
 
 export interface  Settings {

@@ -3,9 +3,16 @@ import {Route, Routes} from "react-router-dom";
 import WeatherPage from "./pages/WeatherPage";
 import ForecastPage from "./pages/ForecastPage";
 import SettingsPage from "./pages/SettingsPage";
-import React from "react";
+import React, {useEffect} from "react";
+import {useTranslation} from "react-i18next";
 
 function WeatherStation() {
+    const {i18n} = useTranslation();
+
+    useEffect(() => {
+        console.log(`Language changed to ${i18n.language}`);
+    }, [i18n.language]);
+
     return (
         <>
             <Navbar/>
