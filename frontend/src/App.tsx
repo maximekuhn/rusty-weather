@@ -1,38 +1,20 @@
-import React, {useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
-import WeatherPage from "./pages/WeatherPage";
-import SettingsPage from "./pages/SettingsPage";
-import ForecastPage from "./pages/ForecastPage";
-import Navbar from "./components/navbar/Navbar";
+import React from 'react';
 import {SettingsProvider} from "./config/SettingsContext";
 import {ChakraProvider} from "@chakra-ui/react";
-import "./i18n";
-import {useTranslation} from "react-i18next";
+import i18n from "./i18n";
+import {I18nextProvider} from "react-i18next";
+import WeatherStation from "./WeatherStation";
 
 function App() {
-    const {t, i18n} = useTranslation();
-
-    // Refresh the whole app if the language changes
-    useEffect(() => {
-        console.log(`Language changed to ${i18n.language}`);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [i18n.language]);
-
-
     return (
         <div className="App">
-            <header className="App-header">
+            <I18nextProvider i18n={i18n}>
                 <ChakraProvider>
                     <SettingsProvider>
-                        <Navbar/>
-                        <Routes>
-                            <Route path={"/"} element={<WeatherPage/>}/>
-                            <Route path={"/forecast"} element={<ForecastPage/>}/>
-                            <Route path={"/settings"} element={<SettingsPage/>}/>
-                        </Routes>
+                        <WeatherStation/>
                     </SettingsProvider>
                 </ChakraProvider>
-            </header>
+            </I18nextProvider>
         </div>
     );
 }

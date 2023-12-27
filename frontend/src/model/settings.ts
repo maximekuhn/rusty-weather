@@ -1,3 +1,7 @@
+export enum Language {
+    English = "en",
+}
+
 export interface  Settings {
     current_city: string;
 }

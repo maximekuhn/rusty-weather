@@ -1,10 +1,7 @@
 import React, {createContext, Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {config} from "./config";
 import {getCurrentSettings} from "../api/settings";
-
-enum Language {
-    English,
-}
+import { Language } from "../model/settings";
 
 interface Settings {
     city: string;
@@ -55,5 +52,5 @@ const useSettings = (): SettingsContextProps => {
     return context;
 }
 
-export {SettingsProvider, useSettings, Language};
+export {SettingsProvider, useSettings};
 export type {Settings};
