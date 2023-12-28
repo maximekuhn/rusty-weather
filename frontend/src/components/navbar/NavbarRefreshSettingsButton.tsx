@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 
 
 function NavbarRefreshSettingsButton() {
-    const {settings, setSettings} = useSettings();
+    const { setSettings} = useSettings();
     const {i18n} = useTranslation();
 
     function queryAndUpdateSettings() {

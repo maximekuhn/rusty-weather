@@ -2,7 +2,6 @@ import React, {createContext, Dispatch, SetStateAction, useContext, useEffect, u
 import {config} from "./config";
 import {getCurrentSettings} from "../api/settings";
 import {Language} from "../model/settings";
-import {strToLanguage} from "../utils/languageHelper";
 import {useTranslation} from "react-i18next";
 
 interface Settings {
