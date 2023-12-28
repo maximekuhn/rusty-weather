@@ -17,7 +17,8 @@ function SettingsPage() {
 
     function update() {
         const newSettings: UpdateSettings = {
-            new_current_city: cityInput,
+            new_language: settings.language,
+            new_current_city: cityInput
         };
         updateSettings(newSettings)
             .then((response) => {
