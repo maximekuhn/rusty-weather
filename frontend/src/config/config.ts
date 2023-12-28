@@ -1,6 +1,6 @@
-import {Language} from "./SettingsContext";
-
 // -- URL settings
+import {Language} from "../model/settings";
+
 const isDevelopment = process.env.NODE_ENV === "development";
 let backendURL;
 let settingsURL;

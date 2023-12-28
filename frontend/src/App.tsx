@@ -1,28 +1,20 @@
 import React from 'react';
-import {Route, Routes} from "react-router-dom";
-import WeatherPage from "./pages/WeatherPage";
-import SettingsPage from "./pages/SettingsPage";
-import ForecastPage from "./pages/ForecastPage";
-import Navbar from "./components/navbar/Navbar";
 import {SettingsProvider} from "./config/SettingsContext";
 import {ChakraProvider} from "@chakra-ui/react";
+import i18n from "./i18n";
+import {I18nextProvider} from "react-i18next";
+import WeatherStation from "./WeatherStation";
 
 function App() {
-
     return (
         <div className="App">
-            <header className="App-header">
+            <I18nextProvider i18n={i18n}>
                 <ChakraProvider>
                     <SettingsProvider>
-                        <Navbar/>
-                        <Routes>
-                            <Route path={"/"} element={<WeatherPage/>}/>
-                            <Route path={"/forecast"} element={<ForecastPage/>}/>
-                            <Route path={"/settings"} element={<SettingsPage/>}/>
-                        </Routes>
+                        <WeatherStation/>
                     </SettingsProvider>
                 </ChakraProvider>
-            </header>
+            </I18nextProvider>
         </div>
     );
 }

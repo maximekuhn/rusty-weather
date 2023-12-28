@@ -1,6 +1,7 @@
 use crate::app_state::AppState;
 use crate::handlers::error::HandlerError;
 use crate::handlers::HandlerResult;
+use crate::language::Language;
 use crate::settings::error::SettingsError;
 use crate::settings::model::AppSettings;
 use crate::settings::SettingsRepository;
@@ -39,12 +40,14 @@ impl From<SettingsError> for HandlerError {
 #[derive(Deserialize)]
 pub struct UpdateSettings {
     new_current_city: String,
+    new_language: Language,
 }
 
 impl From<UpdateSettings> for AppSettings {
     fn from(update_settings: UpdateSettings) -> Self {
         Self {
             current_city: update_settings.new_current_city,
+            language: update_settings.new_language,
         }
     }
 }
