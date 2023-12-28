@@ -46,7 +46,7 @@ function CurrentWeatherCard() {
     const sunriseDate = weather?.sunrise ? formatDate(weather.sunrise) : undefined;
 
     function queryWeather() {
-        getCurrentWeather(settings.city)
+        getCurrentWeather(settings.city, settings.language)
             .then((response) => {
                 setWeather(response);
                 setLastRefreshStatus(true);
