@@ -1,3 +1,6 @@
+use std::str::FromStr;
+
+use log::error;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize)]
@@ -13,6 +16,21 @@ pub struct CurrentDayWeather {
     pub sunset: i64,
     pub sunrise: i64,
     pub description: String,
+    pub icon_name: Icon,
+}
+
+#[derive(Serialize)]
+#[cfg_attr(test, derive(Eq, PartialEq, Debug))]
+pub enum Icon {
+    ClearSky,
+    FewClouds,
+    ScatteredClouds,
+    BrokenClouds,
+    ShowerRain,
+    Rain,
+    Thunderstorm,
+    Snow,
+    Mist,
 }
 
 #[derive(Serialize)]
@@ -34,6 +52,7 @@ pub struct OpenWeatherAPICurrent {
 #[derive(Deserialize)]
 pub struct OpenWeatherAPICurrentWeather {
     description: String,
+    icon: String,
 }
 
 #[derive(Deserialize)]
@@ -72,6 +91,17 @@ impl From<OpenWeatherAPICurrent> for CurrentDayWeather {
             Some(weather) => &weather.description,
         };
 
+        let icon = match current_weather.weather.first() {
+            None => Icon::default(),
+            Some(weather) => match weather.icon.parse::<Icon>() {
+                Ok(icon) => icon,
+                Err(err) => {
+                    error!("Failed to parse icon str: {}", err);
+                    Icon::default()
+                }
+            },
+        };
+
         Self {
             temperature: current_weather.main.temp,
             feels_like: current_weather.main.feels_like,
@@ -83,6 +113,65 @@ impl From<OpenWeatherAPICurrent> for CurrentDayWeather {
             sunset: current_weather.sys.sunset,
             sunrise: current_weather.sys.sunrise,
             description: description.to_string(),
+            icon_name: icon,
+        }
+    }
+}
+
+impl FromStr for Icon {
+    type Err = String;
+
+    fn from_str(icon_str: &str) -> Result<Self, Self::Err> {
+        // Parse open weather icons description
+        // Remove 'd' or 'n' to only keep the icon id's number
+        if icon_str.len() != 3 {
+            return Err(format!("Could not parse icon_str: '{}'", icon_str));
+        }
+        let icon_id_number = icon_str[0..2]
+            .parse::<i32>()
+            .map_err(|err| err.to_string())?;
+
+        match icon_id_number {
+            1 => Ok(Self::ClearSky),
+            2 => Ok(Self::FewClouds),
+            3 => Ok(Self::ScatteredClouds),
+            4 => Ok(Self::BrokenClouds),
+            9 => Ok(Self::ShowerRain),
+            10 => Ok(Self::Rain),
+            11 => Ok(Self::Thunderstorm),
+            13 => Ok(Self::Snow),
+            50 => Ok(Self::Mist),
+            other => Err(format!("Unknown icon id number: '{}'", other)),
+        }
+    }
+}
+
+impl Default for Icon {
+    fn default() -> Self {
+        // randomly chosen
+        Self::FewClouds
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::weather::model::Icon;
+    use rstest::rstest;
+
+    #[rstest]
+    #[case(vec!["01d", "01n"], Icon::ClearSky)]
+    #[case(vec!["02d", "02n"], Icon::FewClouds)]
+    #[case(vec!["03d", "03n"], Icon::ScatteredClouds)]
+    #[case(vec!["04d", "04n"], Icon::BrokenClouds)]
+    #[case(vec!["09d", "09n"], Icon::ShowerRain)]
+    #[case(vec!["10d", "10n"], Icon::Rain)]
+    #[case(vec!["11d", "11n"], Icon::Thunderstorm)]
+    #[case(vec!["13d", "13n"], Icon::Snow)]
+    #[case(vec!["50d", "50n"], Icon::Mist)]
+    fn test_parse_icon_from_str(#[case] inputs: Vec<&str>, #[case] expected: Icon) {
+        for input in inputs {
+            let actual = input.parse::<Icon>().unwrap();
+            assert_eq!(expected, actual);
         }
     }
 }

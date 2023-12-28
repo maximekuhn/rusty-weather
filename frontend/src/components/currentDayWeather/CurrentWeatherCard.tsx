@@ -1,4 +1,4 @@
-import {Box, Card, CardBody, CardFooter, CardHeader, Center, Flex, Image, Text} from "@chakra-ui/react";
+import {Box, Card, CardBody, CardFooter, CardHeader, Center, Flex, Text} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import {CurrentWeather} from "../../model/weather";
 import {getCurrentWeather} from "../../api/weather";
@@ -7,6 +7,7 @@ import {config} from "../../config/config";
 import {MdCheckCircle, MdError} from "react-icons/md";
 import {WiGaleWarning, WiHumidity, WiRain, WiStrongWind, WiSunrise, WiSunset} from "react-icons/wi";
 import {epochToDate} from "../../utils/dateAndTimeHelper";
+import {getWeatherIcon} from "../../utils/iconHelper";
 
 interface WeatherInfoProps {
     icon: React.ReactNode;
@@ -21,7 +22,7 @@ function WeatherInfo({icon, text}: WeatherInfoProps) {
             </Box>
             <Box>
                 <Text fontSize={"xl"}>
-                {text}
+                    {text}
                 </Text>
 
             </Box>
@@ -44,6 +45,7 @@ function CurrentWeatherCard() {
 
     const sunsetDate = weather?.sunset ? formatDate(weather.sunset) : undefined;
     const sunriseDate = weather?.sunrise ? formatDate(weather.sunrise) : undefined;
+    const weatherIcon = getWeatherIcon(weather?.icon_name, "75px");
 
     function queryWeather() {
         getCurrentWeather(settings.city, settings.language)
@@ -69,13 +71,15 @@ function CurrentWeatherCard() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [settings]);
 
+    // TODO: depending on the weatherIcon, the Box's height seems to change size
     return (
         <Card borderRadius={"6px"} h={"100%"} border={"2px solid black"}>
             <CardHeader h={"30%"} padding={"0"} borderBottom={"1px solid black"}>
                 <Flex h={"100%"}>
-                    <Box w={"25%"} >
-                        <Image src={"https://d29fhpw069ctt2.cloudfront.net/icon/image/84559/preview.svg"}
-                               boxSize={"100%"} bg={"lightsteelblue"} borderRight={"1px solid black"}/>
+                    <Box w={"25%"} h={"100%"} paddingTop={"5px"} borderRight={"1px solid black"}>
+                        <Center>
+                            {weatherIcon}
+                        </Center>
                     </Box>
                     <Box margin={"auto"} w={"60%"}>
                         <Flex alignItems={"center"}>
@@ -96,13 +100,17 @@ function CurrentWeatherCard() {
                 <Flex marginTop={"10px"} marginBottom={"10px"}>
                     <Box w={"50%"}>
                         <Flex direction={"column"}>
-                            <WeatherInfo icon={<WiHumidity size={"50px"}/>} text={`${weather?.humidity_rate.toFixed(1).toString() ?? "-"}%`}/>
-                            <WeatherInfo icon={<WiRain size={"50px"}/>} text={`${weather?.probability_of_precipitation?.toFixed(1).toString() ?? "-"}%`}/>
-                            <WeatherInfo icon={<WiStrongWind size={"50px"}/>} text={`${weather?.wind_speed.toFixed(1).toString() ?? "-"} km/h`}/>
+                            <WeatherInfo icon={<WiHumidity size={"50px"}/>}
+                                         text={`${weather?.humidity_rate.toFixed(1).toString() ?? "-"}%`}/>
+                            <WeatherInfo icon={<WiRain size={"50px"}/>}
+                                         text={`${weather?.probability_of_precipitation?.toFixed(1).toString() ?? "-"}%`}/>
+                            <WeatherInfo icon={<WiStrongWind size={"50px"}/>}
+                                         text={`${weather?.wind_speed.toFixed(1).toString() ?? "-"} km/h`}/>
                         </Flex>
                     </Box>
                     <Box w={"50%"}>
-                        <WeatherInfo icon={<WiGaleWarning size={"50px"}/>} text={`${weather?.pressure.toFixed(0).toString() ?? "-"} hPa`}/>
+                        <WeatherInfo icon={<WiGaleWarning size={"50px"}/>}
+                                     text={`${weather?.pressure.toFixed(0).toString() ?? "-"} hPa`}/>
                         <WeatherInfo icon={<WiSunrise size={"50px"}/>} text={`${sunriseDate ?? "-"}`}/>
                         <WeatherInfo icon={<WiSunset size={"50px"}/>} text={`${sunsetDate ?? "-"}`}/>
                     </Box>
