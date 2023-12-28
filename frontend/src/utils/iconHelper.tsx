@@ -2,9 +2,8 @@ import {Icon} from "../model/weather";
 import {
     WiCloud,
     WiCloudy,
-    WiDayCloudy, WiDayCloudyGusts,
+    WiDayCloudy,
     WiDayFog,
-    WiDayHail,
     WiDayRain,
     WiDaySnow,
     WiDaySunny,
