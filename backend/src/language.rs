@@ -1,12 +1,16 @@
 use std::fmt::{Display, Formatter};
 use std::str::FromStr;
 
+use serde::Serialize;
 use serde_with::DeserializeFromStr;
+use sqlx::Type;
 
-#[derive(DeserializeFromStr, Debug)]
+#[derive(DeserializeFromStr, Debug, Serialize, Type)]
 #[cfg_attr(test, derive(Eq, PartialEq))]
 pub enum Language {
+    #[sqlx(rename = "en")]
     English,
+    #[sqlx(rename = "fr")]
     French,
 }
 
@@ -41,8 +45,9 @@ impl Display for Language {
 
 #[cfg(test)]
 mod tests {
-    use crate::language::Language;
     use rstest::rstest;
+
+    use crate::language::Language;
 
     #[rstest]
     #[case("en", Language::English)]
