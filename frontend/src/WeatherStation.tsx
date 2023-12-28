@@ -9,6 +9,7 @@ import {useTranslation} from "react-i18next";
 function WeatherStation() {
     const {i18n} = useTranslation();
 
+    // Refresh the whole app whenever the language changes
     useEffect(() => {
         console.log(`Language changed to ${i18n.language}`);
     }, [i18n.language]);

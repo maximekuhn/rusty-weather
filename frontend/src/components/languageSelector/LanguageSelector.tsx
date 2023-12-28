@@ -2,18 +2,8 @@ import {Select} from "@chakra-ui/react";
 import {Language} from "../../model/settings";
 import {useTranslation} from "react-i18next";
 import {Settings, useSettings} from "../../config/SettingsContext";
+import {strToLanguage} from "../../utils/languageHelper";
 
-// TODO: maybe move this function somewhere else
-function strToLanguage(value: string): Language | undefined {
-    switch (value.toLowerCase()) {
-        case "en":
-            return Language.English;
-        case "fr":
-            return Language.French;
-        default:
-            return undefined;
-    }
-}
 
 function LanguageSelector() {
     const {i18n} = useTranslation();
