@@ -19,6 +19,7 @@ openssl = { version = "0.10.61", features = ["vendored"] }
 # Serializer/Deserializer
 serde = { version = "1.0.193", features = ["derive"] }
 serde_json = "1.0.108"
+serde_with = "3.4.0"
 
 # HTTP Client
 reqwest = { version = "0.11.22", features = ["json"] }
@@ -29,3 +30,6 @@ env_logger = "0.10.1"
 
 # Database management
 sqlx = { version = "0.7.3", features = ["sqlite", "runtime-tokio-rustls"] }
+
+[dev-dependencies]
+rstest = "0.18.2"

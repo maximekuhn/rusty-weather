@@ -4,6 +4,7 @@ import {UpdateSettings} from "../model/settings";
 import {updateSettings} from "../api/settings";
 import {isRaspberryPi} from "../utils/screenSize";
 import RedirectToSettings from "../components/redirectToSettings/RedirectToSettings";
+import LanguageSelector from "../components/languageSelector/LanguageSelector";
 
 function SettingsPage() {
     const {settings, setSettings} = useSettings();
@@ -16,7 +17,8 @@ function SettingsPage() {
 
     function update() {
         const newSettings: UpdateSettings = {
-            new_current_city: cityInput,
+            new_language: settings.language,
+            new_current_city: cityInput
         };
         updateSettings(newSettings)
             .then((response) => {
@@ -38,6 +40,7 @@ function SettingsPage() {
                     <p>city: </p>
                     <input type="text" onChange={(event) => updateCityInput(event.target.value)}/>
                     <button onClick={update}>update</button>
+                    <LanguageSelector />
                 </>
             )}
         </div>

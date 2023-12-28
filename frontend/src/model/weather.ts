@@ -9,4 +9,17 @@ export interface CurrentWeather {
     sunset: number;
     sunrise: number;
     description: string;
+    icon_name: Icon,
+}
+
+export enum Icon {
+    ClearSky = "ClearSky",
+    FewClouds = "FewClouds",
+    ScatteredClouds = "ScatteredClouds",
+    BrokenClouds = "BrokenClouds",
+    ShowerRain = "ShowerRain",
+    Rain = "Rain",
+    Thunderstorm = "Thunderstorm",
+    Snow = "Snow",
+    Mist = "Mist",
 }
