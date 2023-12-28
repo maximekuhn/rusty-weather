@@ -13,7 +13,7 @@ use tower_http::cors::CorsLayer;
 
 use crate::app_state::AppState;
 use crate::config::Config;
-use crate::settings::SQLiteSettingsRepository;
+use crate::settings::sqlite_repository::SQLiteSettingsRepository;
 use crate::weather::open_weather_api::OpenWeatherAPI;
 
 mod app_state;
