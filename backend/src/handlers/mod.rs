@@ -3,8 +3,8 @@ use axum::http::StatusCode;
 use crate::handlers::error::HandlerError;
 
 pub mod error;
-pub mod weather;
 pub mod settings;
+pub mod weather;
 
 type HandlerResult<T> = Result<T, HandlerError>;
 
